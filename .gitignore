@@ -23,5 +23,3 @@ yarn-debug.log*
 yarn-error.log*
 config/production.json
 config/default.json
-frontend/build
-frontend/.eslintcache
