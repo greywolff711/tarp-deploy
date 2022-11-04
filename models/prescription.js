@@ -3,7 +3,7 @@ const Schema=mongoose.Schema;
 
 const PrescriptionSchema=mongoose.Schema({
     doctor: {
-        type: Schema.Types.ObjectId,
+        type: String,
     },
     patient: {
         type: String,

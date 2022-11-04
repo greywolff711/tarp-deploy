@@ -12,7 +12,7 @@ const AddPrescription = () => {
     const submitHandler = (e) => {
         e.preventDefault();
         console.log(formdata);
-        fetch("http://localhost:5000/api/prescription", {
+        fetch("http://localhost:5000/api/prescription/1", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -43,7 +43,7 @@ const AddPrescription = () => {
                         </label>
                         <input rows = "4" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
                         rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-patient" type="text" 
-                        placeholder="John Doe" name="patient" value={formdata.patient} onChange={(e)=>{setFormdata(e.target.value)}}/>
+                        placeholder="John Doe" name="patient" value={formdata.patient} onChange={(e)=>{setFormdata({...formdata, patient:e.target.value})}}/>
                     </div> <br/>
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-medicines">
@@ -51,7 +51,7 @@ const AddPrescription = () => {
                         </label>
                         <textarea rows = "4" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
                         rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-address" type="text" 
-                        placeholder="Crocin 500mg" name="medicine" value={formdata.medicine} onChange={(e) => {setFormdata(e.target.value)}}/>
+                        placeholder="Crocin 500mg" name="medicine" value={formdata.medicine} onChange={(e) => {setFormdata({...formdata, medicine:e.target.value})}}/>
                     </div> <br/>
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-instructions">
@@ -59,7 +59,7 @@ const AddPrescription = () => {
                         </label>
                         <textarea rows = "4" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
                         rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-instructions" type="text" 
-                        placeholder="Crocin: 1-0-1 after food" name="instructions" value={formdata.instructions} onChange={(e) => {setFormdata(e.target.value)}}/>
+                        placeholder="Crocin: 1-0-1 after food" name="instructions" value={formdata.instructions} onChange={(e) => {setFormdata({...formdata, instructions:e.target.value})}}/>
                     </div>
                 
                 <br/>

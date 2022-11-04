@@ -33,7 +33,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.update("/:doctor_id", async (req, res) => {
+router.patch("/:doctor_id", async (req, res) => {
     try {
         const { patient, medicine, instructions } = req.body;
         const prescription = await Prescription.findOne({doctor: req.params.doctor_id});
