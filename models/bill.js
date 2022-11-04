@@ -9,7 +9,11 @@ const BillSchema=mongoose.Schema({
     },
     status:{
         type:Boolean
-    }
+    },
+    tokens:{
+        type:Number
+        // default
+    },
 })
 
 module.exports=Bill=mongoose.model('bill',BillSchema);

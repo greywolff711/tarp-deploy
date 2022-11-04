@@ -9,10 +9,14 @@ const ManageRoomBooking = () => {
   const l = window.location.pathname.replace(/^\/([^\/]*).*$/, '$1');
   // console.log(l);  
   const [booking,setbooking]=useState([]);
+  const [roomsleft,setroomsleft]=useState();
   useEffect(()=>{
     fetch(`http://localhost:5000/api/bookedRoom/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
       setbooking(val);
-    })
+    });
+    fetch(`http://localhost:5000/api/rooms/left`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+        setroomsleft(val);
+      })
   },[])
 
   const deleteBooking=(id)=>{
@@ -65,6 +69,10 @@ const ManageRoomBooking = () => {
                     <h6 className="text-2xl uppercase">Room Booking</h6>
                     <br/>
                     <Link to={"/"+l+"/AddRoom"}  className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white">ADD</Link>
+                </div>
+                <br/><br/>
+                <div className='text-2xl uppercase p-2'>
+                    Rooms left: {roomsleft}
                 </div>
                 <br/>
                 <div className="flex-auto px-0 pt-0 pb-2">

@@ -17,7 +17,7 @@ console.log(newData);
     const onsubmit=(e)=>{
         e.preventDefault();
         const res=data.Prescription.filter(item=>{
-            return item.name.toLowerCase()===search.toLowerCase();
+            return item.patient.toLowerCase()===search.toLowerCase();
         });
         setNewData(res);
     }
