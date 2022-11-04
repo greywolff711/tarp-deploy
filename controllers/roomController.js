@@ -4,6 +4,7 @@ const router = express.Router();
 const auth = require("../middleware/auth");
 
 const Room = require("../models/room");
+const BookedRooms = require("../models/BookedRooms");
 
 router.post(
   "/room",
@@ -52,8 +53,9 @@ router.get("/", async (req, res) => {
 
 router.get("/left", async (req, res) => {
   try {
-    let result = await Room.count({ booked: { $ne: true } });
-    res.json({ left: result });
+    let result = await Room.count({booked:false});
+    let r1=await BookedRooms.count({ paid: true});
+    res.json({ left: result-r1 });
   } catch (err) {
     console.log(err);
   }
