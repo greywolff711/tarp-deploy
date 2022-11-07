@@ -10,7 +10,7 @@ import React from "react";
 
 const Login = () => {
     const navigate = useNavigate();
-    const [loginInput, setLoginInput] = useState({email: "", password: "", userType: "inpatient"})
+    const [loginInput, setLoginInput] = useState({phone: "", password: "", userType: "inpatient"})
     const loginHandler = (e) => {
         e.preventDefault()
         fetch(`https://pure-reef-02809.herokuapp.com/api/${loginInput.userType}/login`, {
@@ -18,10 +18,11 @@ const Login = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({email: loginInput.email, password: loginInput.password})
+            body: JSON.stringify({phone: loginInput.phone, password: loginInput.password})
         }).then((data) => data.json() ).then((val) => {
             localStorage.setItem("user", JSON.stringify(val))
             console.log(val);
+            if(val.token.length!=0){
             if(loginInput.userType==='receptionist'){
                 navigate('/receptionist/1');
             }
@@ -42,7 +43,8 @@ const Login = () => {
             }
             if(loginInput.userType==='admin'){
                 navigate('/admin/1');
-            }
+            }}
+            else console.log('invalid credentials');
         })
     }
   return (
@@ -65,10 +67,10 @@ const Login = () => {
                 </select> </h1>
                 <br/>
                 
-                <input type = "text" placeholder = "Email" className ="block w-full px-4
+                <input type = "text" placeholder = "phone" className ="block w-full px-4
                 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 
                 rounded transition duration-300 ease-in-out m-0 focus:text-gray-700 focus:bg-[#dbf0fe] focus:border-[#dbf0fe] 
-                focus:outline-none" value={loginInput.email} onChange={(e) => {setLoginInput({...loginInput, email: e.target.value})}}/><br/>
+                focus:outline-none" value={loginInput.phone} onChange={(e) => {setLoginInput({...loginInput, phone: e.target.value})}}/><br/>
                 
                 <input type = "password" id = "password" placeholder="Password" className ="block w-full px-4
                 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 
