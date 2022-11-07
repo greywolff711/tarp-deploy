@@ -12,13 +12,13 @@ const ManageDoctor = () => {
 
     const [doctor,setdoctor]=useState([]);
     useEffect(()=>{
-        fetch(`http://localhost:5000/api/doctor/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/doctor/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
           setdoctor(val);
         })
     },[])
     const deleteDoctor=(id)=>{
         console.log('qweqwe');
-        fetch(`http://localhost:5000/api/doctor/${id}`, {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/doctor/${id}`, {
             method: "DELETE",
             headers: {
                 'x-auth-token':JSON.parse(localStorage.user).token,

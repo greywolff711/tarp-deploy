@@ -3,7 +3,7 @@ import React,{useState,useEffect} from 'react'
 const RoomDetail = () => {  
     const [booking,setbooking]=useState([]);
     useEffect(()=>{
-      fetch(`http://localhost:5000/api/bookedRoom/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+      fetch(`https://pure-reef-02809.herokuapp.com/api/bookedRoom/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
         setbooking(val);
       })
     },[])

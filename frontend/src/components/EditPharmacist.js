@@ -26,9 +26,9 @@ const EditPharmacist = () => {
     //       }
     //     ]
     //   }
-    // console.log(`http://localhost:5000/api/pharmacist/${id}`)
+    // console.log(`https://pure-reef-02809.herokuapp.com/api/pharmacist/${id}`)
     useEffect(()=>{
-    fetch(`http://localhost:5000/api/pharmacist/${id}`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+    fetch(`https://pure-reef-02809.herokuapp.com/api/pharmacist/${id}`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
       setData(val);
       console.log(val)
     })
@@ -51,7 +51,7 @@ const EditPharmacist = () => {
         
         e.preventDefault();
         console.log(formData);
-    fetch(`http://localhost:5000/api/pharmacist/update/${id}`, {
+    fetch(`https://pure-reef-02809.herokuapp.com/api/pharmacist/update/${id}`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

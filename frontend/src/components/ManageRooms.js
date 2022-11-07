@@ -8,7 +8,7 @@ const ManageRooms = () => {
   console.log(l); 
   const [rooms,setRooms]=useState([]);
   useEffect(()=>{
-    fetch(`http://localhost:5000/api/rooms`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+    fetch(`https://pure-reef-02809.herokuapp.com/api/rooms`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
       setRooms(val);
     })
   },[])
@@ -39,7 +39,7 @@ const ManageRooms = () => {
   //     }
   const ondelete=(id)=>{
     console.log('qweqwe');
-    fetch(`http://localhost:5000/api/rooms/${id}`, {
+    fetch(`https://pure-reef-02809.herokuapp.com/api/rooms/${id}`, {
         method: "DELETE",
         headers: {
             'x-auth-token':JSON.parse(localStorage.user).token,
