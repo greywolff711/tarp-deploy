@@ -11,7 +11,7 @@ const ManageInventory = () => {
   // console.log(l);  
   const [medicine,setmedicine]=useState([]);
     useEffect(()=>{
-        fetch(`http://localhost:5000/api/medicine`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/medicine`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
           setmedicine(val);
         })
     },[]);
@@ -53,7 +53,7 @@ const ManageInventory = () => {
   //     }
   const deleteMedicine=(id)=>{
     // console.log('qweqwe');
-    fetch(`http://localhost:5000/api/medicine/${id}`, {
+    fetch(`https://pure-reef-02809.herokuapp.com/api/medicine/${id}`, {
         method: "DELETE"
     }).then((data) => data.json() ).then((val) => {
         console.log(val);
