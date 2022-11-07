@@ -67,7 +67,7 @@ const Login = () => {
                 </select> </h1>
                 <br/>
                 
-                <input type = "text" placeholder = "phone" className ="block w-full px-4
+                <input type = "text" placeholder = "Phone" className ="block w-full px-4
                 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 
                 rounded transition duration-300 ease-in-out m-0 focus:text-gray-700 focus:bg-[#dbf0fe] focus:border-[#dbf0fe] 
                 focus:outline-none" value={loginInput.phone} onChange={(e) => {setLoginInput({...loginInput, phone: e.target.value})}}/><br/>
