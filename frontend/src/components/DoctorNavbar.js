@@ -35,9 +35,10 @@ export default function DoctorNavbar() {
                         <li className="ml-[780px]">
             
                         </li>
+                
                         <li>
                         <Link to="/login">
-                        <button className="ml-[780px] bg-white rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white">
+                        <button className="bg-white rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white">
                             LOGOUT
                         </button>
                         </Link>
