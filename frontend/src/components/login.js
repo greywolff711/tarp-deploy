@@ -56,8 +56,8 @@ const Login = () => {
                 <select  value={loginInput.userType} onChange={(e) => {setLoginInput({...loginInput, userType: e.target.value})}} className="text-4xl form-select inline-block px-3 py-1.5 text-base font-semibold bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-current focus:bg-white focus:outline-none active:text-grey-700">
 
                     {/* <option className="text-3xl">User</option> */}
-                        <option className="text-3xl" value="inpatient">In Patient</option>
-                        <option className="text-3xl" value="outpatient">Out Patient</option>
+                        <option className="text-3xl" value="inpatient">Inpatient</option>
+                        <option className="text-3xl" value="outpatient">Outpatient</option>
                         <option className="text-3xl" value="doctor">Doctor</option>
                         <option className="text-3xl" value="receptionist">Receptionist</option>
                         <option className="text-3xl" value="pharmacist">Pharmacist</option>
@@ -90,7 +90,7 @@ const Login = () => {
             </div>
             
             <div className="flex justify-center flex-col items-center bg-[#121212] flex"><br/><br/>
-                <h1 className="text-5xl text-white font-semibold mb-6">Welcome to name!</h1><br/>
+                <h1 className="text-5xl text-white font-semibold mb-6">Welcome to HMS!</h1><br/>
                 <img className="object-cover w-60 h-60" src = {pict} alt = "project_logo"/>
                 <br/>
                 <Link to="/AddPatient">    <button className="inline-block px-7 py-3 bg-[#121212] border-white border-2 text-white font-medium rounded 
