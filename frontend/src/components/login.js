@@ -77,9 +77,6 @@ const Login = () => {
                 rounded transition duration-300 ease-in-out m-0 focus:text-gray-700 focus:bg-[#dbf0fe] focus:border-[#dbf0fe] 
                 focus:outline-none" value={loginInput.password} onChange={(e) => {setLoginInput({...loginInput, password: e.target.value})}}/>
                 <br/>
-{/*                 
-                <span>Forgot password? Click </span>
-                <span id = "here"><a href = "about:blank">here</a></span> <br/> */}
 
                
                 <br/><br/><br/><br/><br/>
