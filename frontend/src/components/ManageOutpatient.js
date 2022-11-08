@@ -102,7 +102,7 @@ const ManageOutpatient = () => {
                         <table className="items-center w-full mb-0 align-top border-black text-grey-700">
                             <thead className="align-bottom">
                             <tr>
-                                <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">ID</th>
+                                {/* <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">ID</th> */}
                                 <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">Name</th>
                                 <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">Login Count</th>
                                 <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">Email</th>
@@ -120,13 +120,13 @@ const ManageOutpatient = () => {
                                 
                                
                                 <tr>
-                                    <td className="p-0 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                    {/* <td className="p-0 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                     <div className="flex px-2 py-1">
                                         <div className="flex flex-col justify-center">
                                         <h6 className="mb-0 leading-normal text-sm">{item._id}</h6>
                                         </div>
                                     </div>
-                                    </td>
+                                    </td> */}
                                     <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                     <h6 className="mb-0 leading-normal text-sm">{item.name}{' '}{item.last_name}</h6>
                                     </td>
