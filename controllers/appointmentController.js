@@ -73,7 +73,12 @@ router.post(
       }
       if(patient.length !=0)
       {
-        fields.patient=patient;
+        inpatient_fetch=await Inpatient.find({phone:patient});
+        outpatient_fetch=await Outpatient.find({phoneNo:patient});
+        let patient_id=null;
+        if(inpatient_fetch.length===0){patient_id=outpatient_fetch[0]._id;}
+        else patient_id=inpatient_fetch[0]._id;    
+        fields.patient=patient_id;
       }
       if(doctor.length !=0)
       {
@@ -89,6 +94,7 @@ router.post(
     //   console.log(fields.query)
       try{
           // let r = await Query.findOneAndUpdate({_id: req.params.query_id},{status});
+          
           let r = await Appointment.findOneAndUpdate(
             {_id: req.params.appointment_id},
             {$set:fields},

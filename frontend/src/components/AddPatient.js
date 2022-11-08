@@ -33,7 +33,8 @@ const onsubmit=(e)=>{
         body: JSON.stringify(formData)
     }).then((data) => data.json() ).then((val) => {
         console.log(val);
-        navigate('/outpatient/1');
+        if(val.errors===undefined)
+          navigate('/outpatient/1');
     })
 }
 

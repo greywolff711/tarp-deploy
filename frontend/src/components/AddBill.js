@@ -2,15 +2,17 @@
 import pict from "./logos/main_logo_v2.svg";
 import pictblack from "./logos/main_logo_black.svg";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import { useState } from "react";
 const AddBill = () => {
     const [formData,setFormData]=useState({
-        patient:"",
-        query:"",
+        phone:"",
+        cost:"",
         status:"",
     });
-
+    const [con,setCon]=useState(100);
+    const [test,setTest]=useState(0);
+    const [xray,setXray]=useState(0);
     const onchange=(e)=>{
         setFormData({...formData,[e.target.name]:e.target.value});
         console.log(formData);
@@ -18,10 +20,13 @@ const AddBill = () => {
 
     const onsubmit=(e)=>{
         e.preventDefault();
+        let total_cost=Number(con)+Number(test)+Number(xray);
+        formData['cost']=Number(formData['cost'])+total_cost;
+        // console.log(formData['cost']);
         fetch(`http://localhost:5000/api/bill`, {
             method: "POST",
             headers: {
-                'x-auth-token':JSON.parse(localStorage.user).token,
+                // 'x-auth-token':JSON.parse(localStorage.user).token,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(formData)
@@ -43,7 +48,7 @@ const AddBill = () => {
                         </label>
                         <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
                         rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-name" type="text" 
-                        placeholder="1234567890" name="contact" onChange={e=>onchange(e)}/>
+                        placeholder="1234567890" name="phone" onChange={e=>onchange(e)}/>
                     </div> <br/>
 
                 {/* <div className="w-full md:w-[8rem] px-3 mb-6 md:mb-0">
@@ -65,10 +70,10 @@ const AddBill = () => {
                         </label>
                         <select className="appearance-none block w-[120px] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
                         leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-consult" type="text" 
-                        placeholder="no" name="consult" onChange={e=>onchange(e)}> 
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                        </select>    
+                        placeholder="no" name="consult" onChange={e=>setCon(e.target.value)}> 
+                            <option value={100}>Yes</option>
+                            <option value={0}>No</option>
+                        </select>
                     </div> 
                     <div className="w-full md:w-1/3 px-6">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-test1">
@@ -76,11 +81,11 @@ const AddBill = () => {
                             </label>
                             <select className="appearance-none block w-[120px] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
                             leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-test1" type="text" 
-                            placeholder="test1" name="test1" onChange={e=>onchange(e)}> 
-                                <option value="none">None</option>
-                                <option value="BT">Blood Test</option>
-                                <option value="LFT">LFT</option>
-                                <option value="COVID">COVID Test</option>
+                            placeholder="test1" onChange={e=>setTest(e.target.value)}> 
+                                <option value={0}>None</option>
+                                <option value={100}>Blood Test</option>
+                                <option value={200}>LFT</option>
+                                <option value={300}>COVID Test</option>
                             </select>  
                     </div>
 
@@ -90,11 +95,11 @@ const AddBill = () => {
                             </label>
                             <select className="appearance-none block w-[120px] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
                             leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-xray" type="text" 
-                            placeholder="no" name="xray" onChange={e=>onchange(e)}> 
-                                <option value="none">None</option>
-                                <option value="chest">Chest</option>
-                                <option value="kidney">Kidney</option>
-                                <option value="bones">Bones</option>
+                            placeholder="no" onChange={e=>setXray(e.target.value)}> 
+                                <option value={0}>None</option>
+                                <option value={100}>Chest</option>
+                                <option value={200}>Kidney</option>
+                                <option value={300}>Bones</option>
                             </select>  
                     </div>
                 </div> <br/> 

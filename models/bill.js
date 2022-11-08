@@ -1,8 +1,9 @@
 const mongoose=require('mongoose');
+const Schema=mongoose.Schema;
 
 const BillSchema=mongoose.Schema({
-    name:{
-        type:String
+    patient:{
+        type:Schema.Types.ObjectId
     },
     cost:{
         type:String,

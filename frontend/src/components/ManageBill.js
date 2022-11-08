@@ -3,15 +3,18 @@ import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import ViewRole from "./ViewRole";
+
 const ManageBill = () => {
   const location = useLocation();
-  console.log(location);
+//   console.log(location);
   const l = window.location.pathname.replace(/^\/([^\/]*).*$/, '$1');
-  console.log(l);    
+//   console.log(l);    
   const [bill,setbill]=useState([]);
   useEffect(()=>{
       fetch(`http://localhost:5000/api/bill/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
         setbill(val);
+        console.log(val);
       })
   },[])
   const deleteBill=(id)=>{
@@ -70,16 +73,16 @@ const ManageBill = () => {
                                 </div>
                                 </td>
                                 <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                <h6 className="mb-0 leading-normal text-sm">{item.name}</h6>
+                                <h6 className="mb-0 leading-normal text-sm"><ViewRole id={item.patient}/></h6>
                                 </td>
                                 <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                 <h6 className="mb-0 leading-normal text-sm">{item.cost}</h6>
                                 </td>
                                 <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                <h6 className="mb-0 leading-normal text-sm">{item.status}</h6>
+                                <h6 className="mb-0 leading-normal text-sm">{item.status.toString()}</h6>
                                 </td>
                                 <td className="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                <Link to={"/"+l+"/EditBill"}  className="mr-2 font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white"> Edit </Link>
+                                <Link to={"/"+l+"/EditBill" } state={{ id:item._id}} className="mr-2 font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white"> Edit </Link>
                                 <button href="" className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white" onClick={()=>deleteBill(item._id)}> Delete </button>
                                 </td>
                             </tr>

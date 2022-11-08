@@ -6,9 +6,11 @@ const jwt=require('jsonwebtoken');
 const config=require('config');
 
 const Bill=require('../models/bill');
+const Inpatient=require('../models/inpatient');
+const Outpatient=require('../models/outpatient');
 
 router.post('/',
-check('name','name is required').not().isEmpty(),
+check('phone','phone is required').not().isEmpty(),
 check('cost','cost is required').not().isEmpty(),
 check('status','status is required').notEmpty(),
 async(req,res)=>{
@@ -17,9 +19,15 @@ async(req,res)=>{
         return res.status(400).json({errors:errors.array()});
     }
 
-    const {name,cost,status}=req.body;
+    const {phone,cost,status}=req.body;
+    inpatient_fetch=await Inpatient.find({phone:phone});
+    outpatient_fetch=await Outpatient.find({phoneNo:phone});
+    let patient_id=null;
+    if(inpatient_fetch.length===0){patient_id=outpatient_fetch[0]._id;}
+    else patient_id=inpatient_fetch[0]._id;
+    console.log(patient_id);
     try {
-        let bill=new Bill({name,cost,status});
+        let bill=new Bill({patient:patient_id,cost,status});
         await bill.save();
         res.json({msg:'Bill saved'});
     } 
@@ -73,5 +81,14 @@ router.delete("/:bill_id",async (req, res) => {
       console.log(err);
     }
 });
+
+router.get('/',async(req,res)=>{
+  try {
+      const appointments = await Bill.find();
+      res.status(200).json(appointments);
+  } catch (err) {
+      console.log(err.message);
+  }
+})
 
 module.exports=router;
