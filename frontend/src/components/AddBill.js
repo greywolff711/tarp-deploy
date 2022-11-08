@@ -39,17 +39,70 @@ const AddBill = () => {
 
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-name">
-                        Name
+                        Mobile
                         </label>
                         <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
                         rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-name" type="text" 
-                        placeholder="John Doe" name="name" onChange={e=>onchange(e)}/>
+                        placeholder="1234567890" name="contact" onChange={e=>onchange(e)}/>
                     </div> <br/>
+
+                {/* <div className="w-full md:w-[8rem] px-3 mb-6 md:mb-0">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-consult">
+                    Consultation
+                    </label>
+                    <select className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
+                    leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-consult" type="text" 
+                    placeholder="no" name="consult" onChange={e=>onchange(e)}> 
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>   
+                </div> <br/>     */}
+
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full md:w-1/3 px-6">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-consult">
+                        Consultation
+                        </label>
+                        <select className="appearance-none block w-[120px] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
+                        leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-consult" type="text" 
+                        placeholder="no" name="consult" onChange={e=>onchange(e)}> 
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>    
+                    </div> 
+                    <div className="w-full md:w-1/3 px-6">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-test1">
+                            Tests
+                            </label>
+                            <select className="appearance-none block w-[120px] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
+                            leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-test1" type="text" 
+                            placeholder="test1" name="test1" onChange={e=>onchange(e)}> 
+                                <option value="none">None</option>
+                                <option value="BT">Blood Test</option>
+                                <option value="LFT">LFT</option>
+                                <option value="COVID">COVID Test</option>
+                            </select>  
+                    </div>
+
+                    <div className="w-full md:w-1/3 px-6">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-disease2">
+                            X-rays
+                            </label>
+                            <select className="appearance-none block w-[120px] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
+                            leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-xray" type="text" 
+                            placeholder="no" name="xray" onChange={e=>onchange(e)}> 
+                                <option value="none">None</option>
+                                <option value="chest">Chest</option>
+                                <option value="kidney">Kidney</option>
+                                <option value="bones">Bones</option>
+                            </select>  
+                    </div>
+                </div> <br/> 
                     
                     <div className="flex flex-wrap -mx-3 mb-6">
                         <div className="w-full md:w-1/2 px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-cost">
-                            Amount
+                            Extra Charges
                             </label>
                             <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
                             leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-cost" type="text" 

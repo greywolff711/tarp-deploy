@@ -45,6 +45,14 @@ const AddPrescription = () => {
                         rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-patient" type="text" 
                         placeholder="John Doe" name="patient" value={formdata.patient} onChange={(e)=>{setFormdata({...formdata, patient:e.target.value})}}/>
                     </div> <br/>
+                    
+                    <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
+                        <form onSubmit={e=>onsubmit(e)}>
+                            <input className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300" placeholder="Enter Medicine" type='text' onChange={e=>onchange(e)} name='medicine'/>
+                            <button className="ml-2 font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white" type='submit'>Search</button>
+                        </form> 
+                    </div><br/>
+
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-medicines">
                         Medicines
