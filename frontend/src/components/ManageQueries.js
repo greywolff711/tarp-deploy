@@ -8,8 +8,9 @@ const ManageQueries = () => {
   let [query,setQuery]=useState([]);
   // console.log(JSON.parse(localStorage.user).token);
   useEffect(()=>{
-      fetch(`https://pure-reef-02809.herokuapp.com/api/queries`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+      fetch(`http://localhost:5000/api/queries`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
         setQuery(val);
+        console.log(val);
       })
   },[])
   query=query.filter(item=>item.status===false);
@@ -43,7 +44,7 @@ const ManageQueries = () => {
   //     }
     const deleteQuery=(id)=>{
         console.log('qweqwe');
-        fetch(`https://pure-reef-02809.herokuapp.com/api/queries/${id}`, {
+        fetch(`http://localhost:5000/api/queries/${id}`, {
             method: "DELETE",
             headers: {
                 'x-auth-token':JSON.parse(localStorage.user).token,

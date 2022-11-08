@@ -18,7 +18,7 @@ const AddBill = () => {
 
     const onsubmit=(e)=>{
         e.preventDefault();
-        fetch(`https://pure-reef-02809.herokuapp.com/api/bill`, {
+        fetch(`http://localhost:5000/api/bill`, {
             method: "POST",
             headers: {
                 'x-auth-token':JSON.parse(localStorage.user).token,

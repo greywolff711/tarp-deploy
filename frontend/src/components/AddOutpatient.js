@@ -12,7 +12,7 @@ const AddOutpatient = () => {
         password: "",
         age: "",
         gender: "",
-        phoneNo: "",
+        phone: "",
         address: "",
     });
 
@@ -23,7 +23,7 @@ const AddOutpatient = () => {
 
     const onsubmit=(e)=>{
         e.preventDefault();
-        fetch(`https://pure-reef-02809.herokuapp.com/api/outpatient/signup`, {
+        fetch(`http://localhost:5000/api/outpatient/signup`, {
             method: "POST",
             headers: {
                 // 'x-auth-token':JSON.parse(localStorage.user).token,
@@ -83,7 +83,7 @@ const AddOutpatient = () => {
                         </label>
                         <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
                         rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-contact" type="text" 
-                        placeholder="1234567890" name="phoneNo" onChange={e=>onchange(e)}/>
+                        placeholder="1234567890" name="phone" onChange={e=>onchange(e)}/>
                     </div> <br/>
 
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">

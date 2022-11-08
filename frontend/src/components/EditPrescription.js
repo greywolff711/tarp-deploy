@@ -12,7 +12,7 @@ const EditPrescription = () => {
     const submitHandler = (e) => {
         e.preventDefault();
         console.log(formdata);
-        fetch("https://pure-reef-02809.herokuapp.com/api/prescription/1", {
+        fetch("http://localhost:5000/api/prescription/1", {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",

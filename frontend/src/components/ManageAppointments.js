@@ -13,14 +13,14 @@ const ManageAppointments = () => {
   // console.log(l);  
   const [appointment,setAppointment]=useState([]);
     useEffect(()=>{
-        fetch(`https://pure-reef-02809.herokuapp.com/api/appointment`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+        fetch(`http://localhost:5000/api/appointment`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
           setAppointment(val);
         })
     },[]);
     // console.log(appointment);
     const deleteAppointment=(id)=>{
       // console.log('qweqwe');
-      fetch(`https://pure-reef-02809.herokuapp.com/api/appointment/${id}`, {
+      fetch(`http://localhost:5000/api/appointment/${id}`, {
           method: "DELETE"
       }).then((data) => data.json() ).then((val) => {
           console.log(val);

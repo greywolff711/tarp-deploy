@@ -5,6 +5,7 @@ import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
 
 const AddRoom = () => {
+    const [rooms,setRooms]=useState([]);
     const [formData,setFormData]=useState({
         patient:"",
         room:"",
@@ -13,14 +14,21 @@ const AddRoom = () => {
         paid:"",
     });
 
+    useEffect(()=>{
+        fetch(`http://localhost:5000/api/rooms`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+          setRooms(val);
+        })
+    },[])
+
     const onchange=(e)=>{
         setFormData({...formData,[e.target.name]:e.target.value});
+        console.log(formData);
     }
 
     const onsubmit=(e)=>{
         e.preventDefault();
         console.log(formData);
-        fetch(`https://pure-reef-02809.herokuapp.com/api/bookedRoom/`, {
+        fetch(`http://localhost:5000/api/bookedRoom/`, {
             method: "POST",
             headers: {
                 // 'x-auth-token':JSON.parse(localStorage.user).token,
@@ -54,10 +62,21 @@ const AddRoom = () => {
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-room">
                             Room
                             </label>
-                            <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
+                            {/* <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
                             leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-room" type="text" 
                             name='room'
-                            onChange={(e)=>onchange(e)}/>
+                            onChange={(e)=>onchange(e)}/> */}
+                            <select className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
+                            leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-paid" type="text" 
+                            name='room'
+                            onChange={(e)=>onchange(e)}
+                            >
+                                {/* <option value="true">True</option>
+                                <option value="false">False</option> */}
+                                {rooms.map(item=>
+                                    <option value={item._id}>{item.block} {item.roomNo}</option>
+                                )}
+                            </select>
                         </div> 
                     </div>
 

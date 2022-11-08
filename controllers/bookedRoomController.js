@@ -3,6 +3,8 @@ const router = express.Router();
 
 const BookedRooms = require("../models/BookedRooms");
 const Rooms = require("../models/room");
+const Inpatient = require("../models/inpatient");
+const Outpatient = require("../models/outpatient");
 
 router.get("/", async (req, res) => {
   try {
@@ -17,8 +19,14 @@ router.post("/", async (req, res) => {
   try {
     // add the doctor id from the req pro
     const { from, price, paid, patient, room } = req.body;
+    inpatient_fetch=await Inpatient.find({phone:patient});
+    outpatient_fetch=await Outpatient.find({phoneNo:patient});
+    let patient_id=null;
+    if(inpatient_fetch.length===0){patient_id=outpatient_fetch[0]._id;}
+    else patient_id=inpatient_fetch[0]._id;
+    
     const booking = new BookedRooms({
-      patient,
+      patient:patient_id,
       room,
       from,
       price,
@@ -37,6 +45,7 @@ router.post("/:book_id", async (req, res) => {
     // add the doctor id from the req pro
     console.log(req.body);
     const { from, price, paid, patient, room } = req.body;
+    
     const fields = {};
     if (from.length != 0) {
       fields.from = from;
@@ -51,7 +60,13 @@ router.post("/:book_id", async (req, res) => {
       fields.paid = true;
     }
     if (patient.length != 0) {
-      fields.patient = patient;
+      inpatient_fetch=await Inpatient.find({phone:patient});
+      outpatient_fetch=await Outpatient.find({phoneNo:patient});
+      let patient_id=null;
+      if(inpatient_fetch.length===0){patient_id=outpatient_fetch[0]._id;}
+      else patient_id=inpatient_fetch[0]._id;
+  
+      fields.patient = patient_id;
     }
     if (room.length != 0) {
       fields.room = room;

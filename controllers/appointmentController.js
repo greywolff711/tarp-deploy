@@ -2,25 +2,32 @@ const express=require('express');
 const router=express.Router();
 const { check, validationResult } = require('express-validator');
 const Inpatient=require('../models/inpatient');
+const Outpatient=require('../models/outpatient');
 const Appointment=require('../models/appointment');
 const Doctor=require('../models/doctor');
 var ObjectID = require('mongodb').ObjectID;
 
 router.post('/:patient_id/:doctor_id',async(req,res)=>{
     try {
-      console.log(req.params.patient_id);
-        let inpatient=await Inpatient.findById({_id: new ObjectID(req.params.patient_id)});
+      console.log(req.params.doctor_id);
+      inpatient_fetch=await Inpatient.find({phone:req.params.patient_id});
+      outpatient_fetch=await Outpatient.find({phoneNo:req.params.patient_id});
+      let patient_id=null;
+      if(inpatient_fetch.length===0){patient_id=outpatient_fetch[0]._id;}
+      else patient_id=inpatient_fetch[0]._id;
         // console.log(inpatient.name);
-        let doctor=await Doctor.findById({_id: new ObjectID(req.params.doctor_id)});
+        let doctor=await Doctor.find({phone :req.params.doctor_id});
+        console.log(doctor);
         const {from,to,symptoms,paid}=req.body;
         let newAppointment=new Appointment({
             from:from,
             to:to,
             symptoms:symptoms,
-            patient:inpatient._id,
-            doctor:doctor,
+            patient:patient_id,
+            doctor:doctor[0]._id,
             paid:paid
         });
+        // console.log(doctor[0]._id);
         await newAppointment.save();
         res.json({msg:"Appointment made"});
     } catch (error) {

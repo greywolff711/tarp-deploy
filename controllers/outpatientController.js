@@ -58,7 +58,7 @@ router.post(
 
 router.delete('/:inpatient_id',async (req,res)=>{
     try {
-        await OutPatient.findOneAndRemove({id:req.params.inpatient_id});
+        await OutPatient.findOneAndRemove({_id:req.params.inpatient_id});
         res.json({msg:'User removed'});
     } catch (err) {
         console.log(err.message);

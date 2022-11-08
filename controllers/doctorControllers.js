@@ -104,6 +104,7 @@ router.get('/:doctor_id',async (req,res)=>{
 
 router.delete('/:doctor_id',async (req,res)=>{
     try {
+        console.log(req.params.doctor_id);
         await Doctor.findOneAndRemove({id:req.params.doctor_id});
         res.json({msg:'User removed'});
     } catch (err) {

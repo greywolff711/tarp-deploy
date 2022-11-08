@@ -13,7 +13,7 @@ const Login = () => {
     const [loginInput, setLoginInput] = useState({phone: "", password: "", userType: "inpatient"})
     const loginHandler = (e) => {
         e.preventDefault()
-        fetch(`https://pure-reef-02809.herokuapp.com/api/${loginInput.userType}/login`, {
+        fetch(`http://localhost:5000/api/${loginInput.userType}/login`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

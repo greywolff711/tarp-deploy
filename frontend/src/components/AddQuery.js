@@ -19,7 +19,7 @@ const AddQuery = () => {
     const onsubmit=(e)=>{
         e.preventDefault();
         console.log(formData);
-        fetch(`https://pure-reef-02809.herokuapp.com/api/queries/query`, {
+        fetch(`http://localhost:5000/api/queries/query`, {
             method: "POST",
             headers: {
                 // 'x-auth-token':JSON.parse(localStorage.user).token,

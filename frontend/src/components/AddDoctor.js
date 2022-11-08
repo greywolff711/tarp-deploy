@@ -20,7 +20,7 @@ const AddDoctor = () => {
 
     const onsubmit=(e)=>{
         e.preventDefault();
-        fetch(`https://pure-reef-02809.herokuapp.com/api/doctor/signup`, {
+        fetch(`http://localhost:5000/api/doctor/signup`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

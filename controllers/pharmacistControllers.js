@@ -144,7 +144,7 @@ router.post('/update/:pharmacist_id',
 });
 router.delete('/:pharmacist_id',async (req,res)=>{
     try {
-        await Pharmacist.findOneAndRemove({id:req.params.pharmacist_id});
+        await Pharmacist.findOneAndRemove({_id:req.params.pharmacist_id});
         res.json({msg:'User removed'});
     } catch (err) {
         console.log(err.message);

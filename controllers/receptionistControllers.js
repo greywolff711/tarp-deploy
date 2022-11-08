@@ -99,7 +99,7 @@ router.post('/login',
 
 router.delete('/:receptionist_id',async (req,res)=>{
     try {
-        await Receptionist.findOneAndRemove({id:req.params.receptionist_id});
+        await Receptionist.findOneAndRemove({_id:req.params.receptionist_id});
         res.json({msg:'User removed'});
     } catch (err) {
         console.log(err.message);

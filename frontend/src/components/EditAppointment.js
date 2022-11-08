@@ -24,7 +24,7 @@ const EditAppointment = () => {
         
     }
     useEffect(()=>{
-        fetch(`https://pure-reef-02809.herokuapp.com/api/appointment/app/${id}`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+        fetch(`http://localhost:5000/api/appointment/app/${id}`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
           setData(val);
           console.log(val);
         })
@@ -33,7 +33,7 @@ const EditAppointment = () => {
     const onsubmit=(e)=>{
         e.preventDefault();
         console.log(formData);
-        fetch(`https://pure-reef-02809.herokuapp.com/api/appointment/${id}`, {
+        fetch(`http://localhost:5000/api/appointment/${id}`, {
             method: "POST",
             headers: {
                 // 'x-auth-token':JSON.parse(localStorage.user).token,

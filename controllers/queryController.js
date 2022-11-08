@@ -4,6 +4,8 @@ const router = express.Router();
 const auth = require("../middleware/auth");
 
 const Query = require("../models/query");
+const Inpatient = require("../models/inpatient");
+const Outpatient = require("../models/outpatient");
 
 router.post(
   "/query",
@@ -15,10 +17,14 @@ router.post(
     }
     let { patient,query,status } = req.body;
     // let patientId = req.user.id;
-
+    inpatient_fetch=await Inpatient.find({phone:patient});
+    outpatient_fetch=await Outpatient.find({phoneNo:patient});
+    let patient_id=null;
+    if(inpatient_fetch.length===0){patient_id=outpatient_fetch[0]._id;}
+    else patient_id=inpatient_fetch[0]._id;
     try {
       query = new Query({
-        patient,
+        patient:patient_id,
         query,
         status,
       });

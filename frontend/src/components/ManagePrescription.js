@@ -20,13 +20,13 @@ const ManagePrescription = () => {
 //       }
     const [prescription,setprescription]=useState([]);
     useEffect(()=>{
-        fetch(`https://pure-reef-02809.herokuapp.com/api/prescription/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+        fetch(`http://localhost:5000/api/prescription/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
           setprescription(val);
         })
     },[])
     const deletePresription=(id)=>{
         console.log('qweqwe');
-        fetch(`https://pure-reef-02809.herokuapp.com/api/prescription/${id}`, {
+        fetch(`http://localhost:5000/api/prescription/${id}`, {
             method: "DELETE",
             headers: {
                 'x-auth-token':JSON.parse(localStorage.user).token,
