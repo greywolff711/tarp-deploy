@@ -23,8 +23,10 @@ async(req,res)=>{
     inpatient_fetch=await Inpatient.find({phone:phone});
     outpatient_fetch=await Outpatient.find({phoneNo:phone});
     let patient_id=null;
-    if(inpatient_fetch.length===0){patient_id=outpatient_fetch[0]._id;}
+    if(inpatient_fetch.length===0&&outpatient_fetch.length!=0){patient_id=outpatient_fetch[0]._id;}
+    else if(outpatient_fetch.length===0&&inpatient_fetch.length!=0) patient_id=inpatient_fetch[0]._id;
     else patient_id=inpatient_fetch[0]._id;
+    if(patient_id==null)return res.json({msg:'Invalid Phone numbers'})
     console.log(patient_id);
     try {
         let bill=new Bill({patient:patient_id,cost,status});
@@ -40,12 +42,19 @@ router.post(
     "/:bill_id",
     // auth,
     async (req, res) => {
-      const {name,cost,status}=req.body;
+      const {phone,cost,status}=req.body;
     //   console.log(req.body);
       const fields={};
-      if(name.length != 0 )
+      if(phone.length != 0 )
       {
-        fields.name=name;
+        inpatient_fetch=await Inpatient.find({phone:phone});
+        outpatient_fetch=await Outpatient.find({phoneNo:phone});
+        let patient_id=null;
+        if(inpatient_fetch.length===0&&outpatient_fetch.length!=0){patient_id=outpatient_fetch[0]._id;}
+        else if(outpatient_fetch.length===0&&inpatient_fetch.length!=0) patient_id=inpatient_fetch[0]._id;
+        else patient_id=inpatient_fetch[0]._id;
+        if(patient_id==null)return res.json({msg:'Invalid Phone numbers'})
+        fields.patient=patient_id;
       }
       if(cost.length != 0)
       {

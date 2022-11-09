@@ -10,27 +10,26 @@ const EditBill = () => {
     const location = useLocation()
     const { id } = location.state;
     const [formData,setFormData]=useState({
-        date:new Date(),
-        from:"",
-        to:"",
-        symptoms:"",
-        patient:"",
-        doctor:""
+        phone:"",
+        cost:"",
+        status:"",
     });
-    // console.log(id)
-    const [data,setData]=useState([]);
+    const [con,setCon]=useState(100);
+    const [test,setTest]=useState(0);
+    const [xray,setXray]=useState(0);
     const onchange=(e)=>{
         setFormData({...formData,[e.target.name]:e.target.value});
-        
+        console.log(formData);
     }
+
     useEffect(()=>{
         // check thisssss!!!!!!!!!
         fetch(`http://localhost:5000/api/bill/${id}`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
-          setData(val);
+        //   setData(val);
           console.log(val);
         })
     },[])
-    console.log(data);
+    // console.log(data);
     const onsubmit=(e)=>{
         e.preventDefault();
         console.log(formData);
@@ -48,8 +47,8 @@ const EditBill = () => {
         })
         // console.log("hi2")
     }
-    const item=data;
-  return (
+    // const item=data;
+    return (
         <div className="m-0 font-sans antialiased font-normal text-base leading-default bg-gray-100 text-grey-700">
 
             <div className="w-full px-6 py-6 mx-auto">
@@ -57,7 +56,7 @@ const EditBill = () => {
              
                 <form className="flex flex-col justify-center place-items-center" onSubmit={(e)=>onsubmit(e)}>
                     
-                    <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
+                    {/* <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-name">
                         Name
                         </label>
@@ -82,8 +81,86 @@ const EditBill = () => {
                             <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
                             py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-status" type="text" placeholder={item.status} name="status" onChange={e=>onchange(e)}/>
                         </div>
+                    </div> */}
+            <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
+                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-name">
+                Mobile
+                </label>
+                <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
+                rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-name" type="text" 
+                placeholder="1234567890" name="phone" onChange={e=>onchange(e)}/>
+            </div> <br/>
+
+                {/* <div className="w-full md:w-[8rem] px-3 mb-6 md:mb-0">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-consult">
+                    Consultation
+                    </label>
+                    <select className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
+                    leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-consult" type="text" 
+                    placeholder="no" name="consult" onChange={e=>onchange(e)}> 
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>   
+                </div> <br/>     */}
+
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full md:w-1/3 px-6">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-consult">
+                        Consultation
+                        </label>
+                        <select className="appearance-none block w-[120px] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
+                        leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-consult" type="text" 
+                        placeholder="no" name="consult" onChange={e=>setCon(e.target.value)}> 
+                            <option value={100}>Yes</option>
+                            <option value={0}>No</option>
+                        </select>
+                    </div> 
+                    <div className="w-full md:w-1/3 px-6">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-test1">
+                            Tests
+                            </label>
+                            <select className="appearance-none block w-[120px] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
+                            leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-test1" type="text" 
+                            placeholder="test1" onChange={e=>setTest(e.target.value)}> 
+                                <option value={0}>None</option>
+                                <option value={100}>Blood Test</option>
+                                <option value={200}>LFT</option>
+                                <option value={300}>COVID Test</option>
+                            </select>  
                     </div>
 
+                    <div className="w-full md:w-1/3 px-6">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-disease2">
+                            X-rays
+                            </label>
+                            <select className="appearance-none block w-[120px] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
+                            leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-xray" type="text" 
+                            placeholder="no" onChange={e=>setXray(e.target.value)}> 
+                                <option value={0}>None</option>
+                                <option value={100}>Chest</option>
+                                <option value={200}>Kidney</option>
+                                <option value={300}>Bones</option>
+                            </select>  
+                    </div>
+                </div> <br/> 
+                    
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                        <div className="w-full md:w-1/2 px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-cost">
+                            Extra Charges
+                            </label>
+                            <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
+                            leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-cost" type="text" 
+                            placeholder="500" name="cost" onChange={e=>onchange(e)}/>
+                        </div>
+                        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-status">
+                            Paid Status
+                            </label>
+                            <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
+                            py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-status" type="text" placeholder="False" name="status" onChange={e=>onchange(e)}/>
+                        </div>
+                    </div>
                 
                 <br/>
                 <ul>
