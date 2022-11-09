@@ -60,7 +60,7 @@ const EditRoom = () => {
              {data.Room.map((item, i) => (
                 <form className="flex flex-col justify-center place-items-center" onSubmit={(e)=>onsubmit(e)}>
                     
-                    <div className="flex flex-wrap -mx-3 mb-6">
+                    {/* <div className="flex flex-wrap -mx-3 mb-6">
                         <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-id">
                             ID
@@ -79,7 +79,20 @@ const EditRoom = () => {
                             onChange={(e)=>onchange(e)}
                             />
                         </div>
-                    </div>
+                    </div> */}
+
+                        <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-patient">
+                            Patient
+                            </label>
+                            <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
+                            leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-patient" type="text" 
+                            placeholder={item.patient}
+                            name='patient'
+                            onChange={(e)=>onchange(e)}
+                            />
+                        </div>
+                    <br/>    
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-room">
                             Room
