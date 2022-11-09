@@ -18,8 +18,8 @@ const EditOutpatient = () => {
     });
     const onsubmit=(e)=>{
         e.preventDefault();
-        // console.log(`https://pure-reef-02809.herokuapp.com/api/doctor/update/${id}`)
-        fetch(`https://pure-reef-02809.herokuapp.com/api/outpatient/update/${id}`, {
+        console.log(formData)
+        fetch(`http://localhost:5000/api/outpatient/update/${id}`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -105,7 +105,7 @@ const EditOutpatient = () => {
                             Contact
                             </label>
                             <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
-                            mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-contact" type="text" placeholder={item.contact} name='contact' onChange={(e)=>onchange(e)}/>
+                            mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-contact" type="text" name='phone' onChange={(e)=>onchange(e)}/>
                         </div>
                     </div>
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">

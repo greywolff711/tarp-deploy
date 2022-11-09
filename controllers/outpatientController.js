@@ -105,6 +105,7 @@ router.post('/login',
         const errors=validationResult(req);
         if(!errors.isEmpty())return res.status(400).json({errors:errors.array()});
         const {name,email,age,phone,address}=req.body;
+        // console.log(req.body)
         try {
             // const receptionist=Receptionist.findById({id:req.params.receptionist_id});
             // if(!receptionist)return res.status(400).res({msg:'No User found'});
@@ -125,7 +126,7 @@ router.post('/login',
             }
             if(phone.length !=0)
             {
-                fields.phone=phone;
+                fields.phoneNo=phone;
             }
             if(address.length !=0)
             {
