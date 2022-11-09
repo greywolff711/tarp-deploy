@@ -23,7 +23,7 @@ const AddBill = () => {
         let total_cost=Number(con)+Number(test)+Number(xray);
         formData['cost']=Number(formData['cost'])+total_cost;
         // console.log(formData['cost']);
-        fetch(`http://localhost:5000/api/bill`, {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/bill`, {
             method: "POST",
             headers: {
                 // 'x-auth-token':JSON.parse(localStorage.user).token,

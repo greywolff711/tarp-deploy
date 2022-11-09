@@ -24,7 +24,7 @@ const EditBill = () => {
 
     useEffect(()=>{
         // check thisssss!!!!!!!!!
-        fetch(`http://localhost:5000/api/bill/${id}`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/bill/${id}`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
         //   setData(val);
           console.log(val);
         })
@@ -36,7 +36,7 @@ const EditBill = () => {
         let total_cost=Number(con)+Number(test)+Number(xray);
         formData['cost']=Number(formData['cost'])+total_cost;
         // check thisssss!!!!!!!!!
-        fetch(`http://localhost:5000/api/bill/${id}`, {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/bill/${id}`, {
             method: "POST",
             headers: {
                 // 'x-auth-token':JSON.parse(localStorage.user).token,

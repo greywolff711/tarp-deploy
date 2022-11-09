@@ -11,14 +11,14 @@ const ManageInpatient = () => {
   // console.log(l);  
   const [inpatient,setInpatient]=useState([]);
   useEffect(()=>{
-    fetch(`http://localhost:5000/api/inpatient/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+    fetch(`https://pure-reef-02809.herokuapp.com/api/inpatient/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
       setInpatient(val);
       console.log(val);
     })
   },[inpatient])
   const deleteInpatient=(id)=>{
-    console.log(`http://localhost:5000/api/inpatient/${id}`);
-    fetch(`http://localhost:5000/api/inpatient/${id}`, {
+    console.log(`https://pure-reef-02809.herokuapp.com/api/inpatient/${id}`);
+    fetch(`https://pure-reef-02809.herokuapp.com/api/inpatient/${id}`, {
         method: "DELETE",
         headers: {
             // 'x-auth-token':JSON.parse(localStorage.user).token,
