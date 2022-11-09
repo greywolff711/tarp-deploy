@@ -6,7 +6,7 @@ const ViewPrescription = ({data}) => {
   const location = useLocation();
 //   console.log(location);
   const [search,setSearch]=useState('');
-  const [newData,setNewData]=useState(data.Prescription);
+  const [newData,setNewData]=useState(data);
   const l = window.location.pathname.replace(/^\/([^\/]*).*$/, '$1');
 //   console.log(l);    
 console.log(newData);
@@ -16,7 +16,7 @@ console.log(newData);
     //Checks whether the name matches or not
     const onsubmit=(e)=>{
         e.preventDefault();
-        const res=data.Prescription.filter(item=>{
+        const res=data.filter(item=>{
             return item.patient.toLowerCase()===search.toLowerCase();
         });
         setNewData(res);

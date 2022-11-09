@@ -5,14 +5,37 @@ import { Link } from "react-router-dom";
 
 const AddPrescription = () => {
     const [formdata, setFormdata] = useState({
+        doctor:"",
         patient: "",
         medicine: "",
         instructions: "",
         });
+
+    const [med,setMed]=useState([]);
+    const [medSearch,setmedSearch]=useState();
+    const onsubmit=(e)=>{
+        // console.log(medSearch);
+        fetch(`http://localhost:5000/api/medicine/${medSearch}`, {
+            method: "GET",
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            setMed(data);
+            formdata['medicine']=med[0].name;
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
+
+    const onchange=(e)=>{
+        setFormdata({...formdata,[e.target.name]:e.target.value});
+        console.log(formdata);
+    }
     const submitHandler = (e) => {
         e.preventDefault();
         console.log(formdata);
-        fetch("http://localhost:5000/api/prescription/1", {
+        fetch("http://localhost:5000/api/prescription/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -39,18 +62,27 @@ const AddPrescription = () => {
                     
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-patient">
-                        Patient Name
+                        Patient Phone Number
                         </label>
                         <input rows = "4" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
                         rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-patient" type="text" 
-                        placeholder="John Doe" name="patient" value={formdata.patient} onChange={(e)=>{setFormdata({...formdata, patient:e.target.value})}}/>
+                        placeholder="John Doe" name="patient" onChange={(e)=>onchange(e)}/>
+                    </div> <br/>
+
+                    <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-patient">
+                        Doctor Phone Number
+                        </label>
+                        <input rows = "4" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
+                        rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-patient" type="text" 
+                        placeholder="John Doe" name="doctor" onChange={(e)=>onchange(e)}/>
                     </div> <br/>
                     
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
-                        <form onSubmit={e=>onsubmit(e)}>
-                            <input className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300" placeholder="Enter Medicine" type='text' onChange={e=>onchange(e)} name='medicine'/>
-                            <button className="ml-2 font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white" type='submit'>Search</button>
-                        </form> 
+                        <form onClick={e=>onsubmit(e)}>
+                            <input className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300" placeholder="Enter Medicine" type='text' value={medSearch} onChange={e=>setmedSearch(e.target.value)}/>
+                            <button className="ml-2 font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white" type='button'>Search</button>
+                        </form>
                     </div><br/>
 
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
@@ -59,7 +91,7 @@ const AddPrescription = () => {
                         </label>
                         <textarea rows = "4" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
                         rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-address" type="text" 
-                        placeholder="Crocin 500mg" name="medicine" value={formdata.medicine} onChange={(e) => {setFormdata({...formdata, medicine:e.target.value})}}/>
+                        placeholder="Crocin 500mg" name="medicine" value={formdata.medicine} onChange={(e)=>onchange(e)}/>
                     </div> <br/>
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-instructions">
@@ -67,7 +99,7 @@ const AddPrescription = () => {
                         </label>
                         <textarea rows = "4" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
                         rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-instructions" type="text" 
-                        placeholder="Crocin: 1-0-1 after food" name="instructions" value={formdata.instructions} onChange={(e) => {setFormdata({...formdata, instructions:e.target.value})}}/>
+                        placeholder="Crocin: 1-0-1 after food" name="instructions" onChange={(e)=>onchange(e)}/>
                     </div>
                 
                 <br/>

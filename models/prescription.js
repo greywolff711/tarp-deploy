@@ -1,12 +1,13 @@
 const mongoose=require('mongoose');
 const Schema=mongoose.Schema;
+const { ObjectId } = Schema.Types;
 
 const PrescriptionSchema=mongoose.Schema({
     doctor: {
-        type: String,
+        type: ObjectId,
     },
     patient: {
-        type: String,
+        type: ObjectId,
     },
     medicine: {
         type: String,

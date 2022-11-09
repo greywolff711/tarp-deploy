@@ -3,11 +3,13 @@ import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import ViewRole from "./ViewRole";
+
 const ManagePrescription = () => {
   const location = useLocation();
-  console.log(location);
+//   console.log(location);
   const l = window.location.pathname.replace(/^\/([^\/]*).*$/, '$1');
-  console.log(l);    
+//   console.log(l);    
 //   const data ={
 //       "Prescription" :[
 //         {
@@ -27,10 +29,7 @@ const ManagePrescription = () => {
     const deletePresription=(id)=>{
         console.log('qweqwe');
         fetch(`http://localhost:5000/api/prescription/${id}`, {
-            method: "DELETE",
-            headers: {
-                'x-auth-token':JSON.parse(localStorage.user).token,
-            }
+            method: "DELETE"
         }).then((data) => data.json() ).then((val) => {
             console.log(val);
         })
@@ -75,10 +74,10 @@ const ManagePrescription = () => {
                                 </div>
                                 </td>
                                 <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                <h6 className="mb-0 leading-normal text-sm">{item.doctor}</h6>
+                                <h6 className="mb-0 leading-normal text-sm"><ViewRole id={item.doctor}/></h6>
                                 </td>
                                 <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                <h6 className="mb-0 leading-normal text-sm">{item.patient}</h6>
+                                <h6 className="mb-0 leading-normal text-sm"><ViewRole id={item.patient}/></h6>
                                 </td>
                                 <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                 <h6 className="mb-0 leading-normal text-sm">{item.medicine}</h6>
@@ -87,8 +86,8 @@ const ManagePrescription = () => {
                                 <h6 className="mb-0 leading-normal text-sm">{item.instructions}</h6>
                                 </td>
                                 <td className="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                <Link to={"/"+l+"/EditPrescription"}  className="mr-2 font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white"> Edit </Link>
-                                <button className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white" onClick={()=>deletePresription(item.patient)}> Delete </button>
+                                <Link to={"/"+l+"/EditPrescription"} state={{ id:item._id}}  className="mr-2 font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white"> Edit </Link>
+                                <button className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white" onClick={()=>deletePresription(item._id)}> Delete </button>
                                 </td>
                             </tr>
                         

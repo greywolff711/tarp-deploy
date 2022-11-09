@@ -1,9 +1,12 @@
 import pict from "./logos/main_logo_v2.svg";
 import pictblack from "./logos/main_logo_black.svg";
+import { useLocation } from "react-router-dom";
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
 
 const EditPrescription = () => {
+    const location = useLocation()
+    const { id } = location.state
     const [formdata, setFormdata] = useState({
         patient: "",
         medicine: "",
@@ -12,7 +15,7 @@ const EditPrescription = () => {
     const submitHandler = (e) => {
         e.preventDefault();
         console.log(formdata);
-        fetch("http://localhost:5000/api/prescription/1", {
+        fetch(`http://localhost:5000/api/prescription/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",

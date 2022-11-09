@@ -39,9 +39,9 @@ router.get('/',async (req,res)=>{
     }
 });
 
-router.get('/:medicine_id',auth,async(req,res)=>{
+router.get('/:medicine_id',async(req,res)=>{
     try {
-        const medicine=await Medicine.findById({_id:req.params.medicine_id});
+        const medicine=await Medicine.find({name:req.params.medicine_id});
         if(!medicine)return res.status(400).json({error:[{msg:'Invalid ID'}]});
         res.json(medicine);
     } catch (error) {
