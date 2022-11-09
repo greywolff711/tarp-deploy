@@ -33,7 +33,7 @@ function ViewRole({id}) {
         })
     },[])
   return (
-    <h6>{(doctor!=undefined)?doctor.name:((inpatient!=undefined)?inpatient.name:(outpatient!=undefined)?outpatient.name:(room!=undefined)?room.roomNo:"Invalid ID")}</h6>
+    <h6>{(doctor!=undefined)?doctor.name:((inpatient!=undefined)?inpatient.name:(outpatient!=undefined)?outpatient.name:(room!=undefined)?room.block+" "+room.roomNo:"Invalid ID")}</h6>
   )
 }
 
