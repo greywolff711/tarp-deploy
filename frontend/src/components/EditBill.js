@@ -32,7 +32,9 @@ const EditBill = () => {
     // console.log(data);
     const onsubmit=(e)=>{
         e.preventDefault();
-        console.log(formData);
+        // console.log(formData);
+        let total_cost=Number(con)+Number(test)+Number(xray);
+        formData['cost']=Number(formData['cost'])+total_cost;
         // check thisssss!!!!!!!!!
         fetch(`http://localhost:5000/api/bill/${id}`, {
             method: "POST",
