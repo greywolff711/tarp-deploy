@@ -7,6 +7,8 @@ const config=require('config');
 const auth=require('../middleware/auth');
 
 const Doctor=require('../models/doctor');
+const Slot = require("../models/Slot");
+const { response } = require('express');
 
 router.post('/signup',
     check('name','name is required').not().isEmpty(),
@@ -92,7 +94,22 @@ router.post('/login',
             console.log(error.message);
         }
     });
-
+    router.get("/appointments",async (req,res)=>{
+        let slots = Slot.find();
+        let morning=0
+        let afternoon = 0;
+        (await slots).forEach(s=>{
+            if(s.timing=="FN"){
+                morning+=1
+            }
+            else if(s.timing =="AN"){
+                afternoon +=1
+            }
+        })
+        await Slot.remove();
+        res.json({morning, afternoon})
+    })
+    
 router.get('/:doctor_id',async (req,res)=>{
     try {
         const doctor=await Doctor.findById(req.params.doctor_id).select('-password');
@@ -101,6 +118,7 @@ router.get('/:doctor_id',async (req,res)=>{
         console.log(err.message);
     }
 })
+
 
 router.delete('/:doctor_id',async (req,res)=>{
     try {

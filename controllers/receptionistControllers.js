@@ -7,6 +7,7 @@ const config=require('config');
 const auth=require('../middleware/auth');
 
 const Receptionist=require('../models/receptionist');
+const Slot = require('../models/Slot');
 
 router.post(
     '/signup',
@@ -54,6 +55,31 @@ router.post(
         }
     }
 );
+
+router.post("/book/slot",
+    check('timing','Timing is required').notEmpty(),
+    check('date','Date is required').notEmpty(),
+    check('slottimeid','Time ID is required').notEmpty(),
+    async (req,res)=>{
+        errors=validationResult(req);
+        if(!errors.isEmpty()){
+            return res.status(400).json({errors:errors.array()});
+        }
+        let temp = await Slot.findOne({"slottimeid":req.body['slottimeid']})
+        let date = new Date(req.body['date'])
+        if(temp && temp['date'].getDate()==date.getDate()){
+            res.status(400).json({msg:"Slot is not available"})
+        }
+        let slt = new Slot(req.body);
+        try{
+            await slt.save();
+        }catch(err){
+            console.log(err);
+            res.status(500).json("Server error");
+        }
+        res.json({msg:"Successfully booked"}).status(200);
+    }
+    )
 
 router.get('/:receptionist_id',async (req,res)=>{
         try {
@@ -160,4 +186,6 @@ router.get('/',async(req,res)=>{
             console.log(err.message);
         }
     })
+
+
 module.exports=router;

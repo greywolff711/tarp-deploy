@@ -86,3 +86,18 @@ GET http://localhost:5000/api/bookedRoom/
 
 ###
 DELETE  http://localhost:5000/api/bookedRoom/63614534f3875d82691348b0
+
+### 
+POST http://localhost:5000/api/receptionist/book/slot
+Content-Type: application/json
+
+{
+    "start":"9:00",
+    "end":"9:20",
+    "timing":"FN",
+    "date":"11/11/2022",
+    "slottimeid":2
+}
+
+###
+GET http://localhost:5000/api/doctor/appointments
