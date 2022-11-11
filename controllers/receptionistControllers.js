@@ -8,6 +8,7 @@ const auth=require('../middleware/auth');
 
 const Receptionist=require('../models/receptionist');
 const Slot = require('../models/Slot');
+const { response } = require('express');
 
 router.post(
     '/signup',
@@ -56,7 +57,7 @@ router.post(
     }
 );
 
-router.post("/book/slot",
+router.post("/slots",
     check('timing','Timing is required').notEmpty(),
     check('date','Date is required').notEmpty(),
     check('slottimeid','Time ID is required').notEmpty(),
@@ -79,7 +80,18 @@ router.post("/book/slot",
         }
         res.json({msg:"Successfully booked"}).status(200);
     }
-    )
+);
+
+router.get('/slots',async (req, res)=>{
+    try{
+        const slots = await Slot.find();
+        res.json(slots).status(200);
+    }catch(err){
+        console.log(err);
+        res.status(500).json("Server error");
+    }
+})
+
 
 router.get('/:receptionist_id',async (req,res)=>{
         try {
