@@ -80,19 +80,36 @@ const AddPrescription = () => {
                     </div> <br/>
                     
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
+                        
                         <form onClick={e=>onsubmit(e)}>
-                            <input className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300" placeholder="Enter Medicine" type='text' value={medSearch} onChange={e=>setmedSearch(e.target.value)}/>
-                            <button className="ml-2 font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white" type='button'>Add to medicines</button>
+                            {/* <select className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300" placeholder="Enter Medicine" type='text' value={medSearch} onChange={e=>setmedSearch(e.target.value)}/> */}
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-medicines">
+                                Medicines
+                            </label>
+                            <select className="w-[12em] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-3 mr-6
+                        leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-medicine-search" type="text" 
+                        placeholder="crocin" name="medicine-search" onChange={e=>onchange(e)}> 
+                            <option value={"crocin"}>Crocin</option>
+                            <option value={"dolo"}>Dolo-650</option>
+                            <option value={"allegra"}>Allegra</option>
+                        </select>
+                            <button className="ml-2 font-semibold leading-tight rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white" type='button'>Add to medicines</button>
                         </form>
                     </div><br/>
 
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-medicines">
-                        Medicines
-                        </label>
+                        
                         <textarea rows = "4" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
                         rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-address" type="text" 
                         placeholder="Crocin 500mg" name="medicine" readOnly value={formdata.medicines.map(item=>(item+" "))} onChange={(e)=>onchange(e)}/>
+                    </div> <br/>
+                    <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-quantity">
+                        Quantity
+                        </label>
+                        <input rows = "4" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
+                        rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-quantity" type="text" 
+                        placeholder="John Doe" name="quantity" onChange={(e)=>onchange(e)}/>
                     </div> <br/>
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-instructions">
