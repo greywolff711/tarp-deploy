@@ -10,7 +10,21 @@ const BillSchema=mongoose.Schema({
     },
     status:{
         type:Boolean
-    }
+    },
+    record:[{
+        consultation:{
+            type:Boolean
+        },
+        tests:{
+            type:String
+        },
+        xray:{
+            type:String
+        },
+        extra:{
+            type:Number
+        }
+    }]
 })
 
 module.exports=Bill=mongoose.model('bill',BillSchema);

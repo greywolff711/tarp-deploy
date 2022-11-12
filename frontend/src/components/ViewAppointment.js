@@ -29,7 +29,7 @@ const ViewAppointment = () => {
 //       }
 const [appointment,setappointent]=useState([]);
     useEffect(()=>{
-        fetch(`https://pure-reef-02809.herokuapp.com/api/appointment/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+        fetch(`http://localhost:5000/api/appointment/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
           setappointent(val);
         })
     },[])

@@ -19,8 +19,8 @@ const EditInpatient = () => {
     });
     const onsubmit=(e)=>{
         e.preventDefault();
-        // console.log(`https://pure-reef-02809.herokuapp.com/api/doctor/update/${id}`)
-        fetch(`https://pure-reef-02809.herokuapp.com/api/inpatient/update/${id}`, {
+        // console.log(`http://localhost:5000/api/doctor/update/${id}`)
+        fetch(`http://localhost:5000/api/inpatient/update/${id}`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

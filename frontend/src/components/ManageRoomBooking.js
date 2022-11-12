@@ -11,17 +11,17 @@ const ManageRoomBooking = () => {
   const [booking,setbooking]=useState([]);
   const [roomsleft,setroomsleft]=useState();
   useEffect(()=>{
-    fetch(`https://pure-reef-02809.herokuapp.com/api/bookedRoom/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+    fetch(`http://localhost:5000/api/bookedRoom/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
       setbooking(val);
     })
-    fetch(`https://pure-reef-02809.herokuapp.com/api/rooms/left`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+    fetch(`http://localhost:5000/api/rooms/left`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
       setroomsleft(val.left);
     })
   },[])
 
   const deleteBooking=(id)=>{
     // console.log('qweqwe');
-    fetch(`https://pure-reef-02809.herokuapp.com/api/bookedRoom/${id}`, {
+    fetch(`http://localhost:5000/api/bookedRoom/${id}`, {
         method: "DELETE"
     }).then((data) => data.json() ).then((val) => {
         console.log(val);

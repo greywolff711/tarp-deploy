@@ -23,7 +23,7 @@ const AddInpatient = () => {
     const onsubmit=(e)=>{
         console.log(formData)
         e.preventDefault();
-        fetch(`https://pure-reef-02809.herokuapp.com/api/inpatient/signup`, {
+        fetch(`http://localhost:5000/api/inpatient/signup`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

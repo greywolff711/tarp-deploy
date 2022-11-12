@@ -18,7 +18,7 @@ const EditDoctor = () => {
     });
     const [data,setData]=useState([]);
     useEffect(()=>{
-        fetch(`https://pure-reef-02809.herokuapp.com/api/doctor/${id}`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+        fetch(`http://localhost:5000/api/doctor/${id}`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
           setData(val);
           console.log(val);
         })
@@ -29,8 +29,8 @@ const EditDoctor = () => {
     }
     const onsubmit=(e)=>{
         e.preventDefault();
-        console.log(`https://pure-reef-02809.herokuapp.com/api/doctor/update/${id}`)
-        fetch(`https://pure-reef-02809.herokuapp.com/api/doctor/update/${id}`, {
+        console.log(`http://localhost:5000/api/doctor/update/${id}`)
+        fetch(`http://localhost:5000/api/doctor/update/${id}`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

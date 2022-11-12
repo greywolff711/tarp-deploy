@@ -28,6 +28,7 @@ app.use('/api/inpatient',require('./controllers/inpatientController'));
 app.use('/api/outpatient',require('./controllers/outpatientController'));
 app.use('/api/appointment',require('./controllers/appointmentController'));
 app.use('/api/bill',require('./controllers/billController'));
+app.use('/api/medicalRecord',require('./controllers/medicalRecordController'));
 app.use('/api/bookedRoom',require('./controllers/bookedRoomController'));
 app.use('/api/admin',require('./controllers/adminController'));
 app.use('/api/prescription',require('./controllers/prescriptionController'));

@@ -12,14 +12,14 @@ const ManageBill = () => {
 //   console.log(l);    
   const [bill,setbill]=useState([]);
   useEffect(()=>{
-      fetch(`https://pure-reef-02809.herokuapp.com/api/bill/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+      fetch(`http://localhost:5000/api/bill/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
         setbill(val);
-        console.log(val);
+        console.log(val[0].record[0]);
       })
   },[])
   const deleteBill=(id)=>{
       console.log('qweqwe');
-      fetch(`https://pure-reef-02809.herokuapp.com/api/bill/${id}`, {
+      fetch(`http://localhost:5000/api/bill/${id}`, {
           method: "DELETE",
           headers: {
               'x-auth-token':JSON.parse(localStorage.user).token,
@@ -55,6 +55,9 @@ const ManageBill = () => {
                             <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">Patient Name</th>
                             <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">Cost</th>
                             <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">Status</th>
+                            <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">Consultation</th>
+                            <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">Tests</th>
+                            <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">Xray</th>
                             <th className="px-2 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none text-m tracking-none whitespace-nowrap text-grey-400 opacity-70"></th>
                         </tr>
                         </thead>
@@ -80,6 +83,15 @@ const ManageBill = () => {
                                 </td>
                                 <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                 <h6 className="mb-0 leading-normal text-sm">{item.status.toString()}</h6>
+                                </td>
+                                <td className="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                {item.record[0].consultation.toString()}
+                                </td>
+                                <td className="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                {item.record[0].tests}
+                                </td>
+                                <td className="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                {item.record[0].xray}
                                 </td>
                                 <td className="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
                                 <Link to={"/"+l+"/EditBill" } state={{ id:item._id}} className="mr-2 font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white"> Edit </Link>

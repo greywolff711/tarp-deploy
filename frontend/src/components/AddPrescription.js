@@ -15,7 +15,7 @@ const AddPrescription = () => {
     const [medSearch,setmedSearch]=useState();
     const onsubmit=(e)=>{
         // console.log(medSearch);
-        fetch(`https://pure-reef-02809.herokuapp.com/api/medicine/${medSearch}`, {
+        fetch(`http://localhost:5000/api/medicine/${medSearch}`, {
             method: "GET",
         })
         .then((res) => res.json())
@@ -35,7 +35,7 @@ const AddPrescription = () => {
     const submitHandler = (e) => {
         e.preventDefault();
         console.log(formdata);
-        fetch("https://pure-reef-02809.herokuapp.com/api/prescription/", {
+        fetch("http://localhost:5000/api/prescription/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

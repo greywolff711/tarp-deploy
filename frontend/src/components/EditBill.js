@@ -14,9 +14,9 @@ const EditBill = () => {
         cost:"",
         status:"",
     });
-    const [con,setCon]=useState(100);
-    const [test,setTest]=useState(0);
-    const [xray,setXray]=useState(0);
+    const [con,setCon]=useState(true);
+    const [test,setTest]=useState("None");
+    const [xray,setXray]=useState("None");
     const onchange=(e)=>{
         setFormData({...formData,[e.target.name]:e.target.value});
         console.log(formData);
@@ -24,7 +24,7 @@ const EditBill = () => {
 
     useEffect(()=>{
         // check thisssss!!!!!!!!!
-        fetch(`https://pure-reef-02809.herokuapp.com/api/bill/${id}`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+        fetch(`http://localhost:5000/api/bill/${id}`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
         //   setData(val);
           console.log(val);
         })
@@ -33,16 +33,38 @@ const EditBill = () => {
     const onsubmit=(e)=>{
         e.preventDefault();
         // console.log(formData);
-        let total_cost=Number(con)+Number(test)+Number(xray);
+        let other_costs=0;
+        if(con==true)other_costs+=100;//adding the consultation costs here
+        if(test==="Blood test")other_costs+=100;
+        else if(test==="LFT")other_costs+=200;
+        else if(test==="COVID")other_costs+=300;
+        if(xray==="Chest")other_costs+=100;
+        if(xray==="Kidney")other_costs+=200;
+        if(xray==="Bones")other_costs+=300;
+
+        let total_cost=other_costs;
         formData['cost']=Number(formData['cost'])+total_cost;
         // check thisssss!!!!!!!!!
-        fetch(`https://pure-reef-02809.herokuapp.com/api/bill/${id}`, {
+        fetch(`http://localhost:5000/api/bill/${id}`, {
             method: "POST",
             headers: {
                 // 'x-auth-token':JSON.parse(localStorage.user).token,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(formData)
+        }).then((data) => data.json() ).then((val) => {
+            console.log(val);
+            
+        })
+        let phone=formData.phone;
+        let recordPOSTData={phone,"consultation":con,"tests":test,xray};
+        fetch(`http://localhost:5000/api/bill/recordEdit/${id}`, {
+            method: "POST",
+            headers: {
+                // 'x-auth-token':JSON.parse(localStorage.user).token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(recordPOSTData)
         }).then((data) => data.json() ).then((val) => {
             console.log(val);
             
@@ -113,8 +135,8 @@ const EditBill = () => {
                         <select className="appearance-none block w-[120px] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
                         leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-consult" type="text" 
                         placeholder="no" name="consult" onChange={e=>setCon(e.target.value)}> 
-                            <option value={100}>Yes</option>
-                            <option value={0}>No</option>
+                            <option value={true}>Yes</option>
+                            <option value={false}>No</option>
                         </select>
                     </div> 
                     <div className="w-full md:w-1/3 px-6">
@@ -124,10 +146,10 @@ const EditBill = () => {
                             <select className="appearance-none block w-[120px] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
                             leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-test1" type="text" 
                             placeholder="test1" onChange={e=>setTest(e.target.value)}> 
-                                <option value={0}>None</option>
-                                <option value={100}>Blood Test</option>
-                                <option value={200}>LFT</option>
-                                <option value={300}>COVID Test</option>
+                                <option value="None">None</option>
+                                <option value="Blood Test">Blood Test</option>
+                                <option value="LFT">LFT</option>
+                                <option value="COVID">COVID Test</option>
                             </select>  
                     </div>
 
@@ -138,10 +160,10 @@ const EditBill = () => {
                             <select className="appearance-none block w-[120px] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
                             leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-xray" type="text" 
                             placeholder="no" onChange={e=>setXray(e.target.value)}> 
-                                <option value={0}>None</option>
-                                <option value={100}>Chest</option>
-                                <option value={200}>Kidney</option>
-                                <option value={300}>Bones</option>
+                                <option value="None">None</option>
+                                <option value="Chest">Chest</option>
+                                <option value="Kidney">Kidney</option>
+                                <option value="Bones">Bones</option>
                             </select>  
                     </div>
                 </div> <br/> 

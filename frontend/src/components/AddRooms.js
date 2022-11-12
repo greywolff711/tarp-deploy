@@ -18,7 +18,7 @@ const AddRooms = () => {
 
     const onsubmit=(e)=>{
         e.preventDefault();
-        fetch(`https://pure-reef-02809.herokuapp.com/api/rooms/room`, {
+        fetch(`http://localhost:5000/api/rooms/room`, {
             method: "POST",
             headers: {
                 'x-auth-token':JSON.parse(localStorage.user).token,
