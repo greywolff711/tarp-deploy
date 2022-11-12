@@ -18,12 +18,13 @@ router.post('/',
         if(!errors.isEmpty()){
             return res.status(400).json({errors:errors.array()});
         }
-
         const {name,description,count}=req.body;
 
         try {
-            let medicine=new Medicine({name,description,count});
+            let newName=name.toLowerCase();
+            let medicine=new Medicine({"name":newName,description,count});
             await medicine.save();
+            console.log(medicine)
             res.json({msg:'Medicine Saved'});
         } catch (error) {
             console.log(error.message);
@@ -41,7 +42,8 @@ router.get('/',async (req,res)=>{
 
 router.get('/:medicine_id',async(req,res)=>{
     try {
-        const medicine=await Medicine.find({name:req.params.medicine_id});
+        let medSearch=req.params.medicine_id.toLocaleLowerCase();
+        const medicine=await Medicine.find({name:medSearch});
         if(!medicine)return res.status(400).json({error:[{msg:'Invalid ID'}]});
         res.json(medicine);
     } catch (error) {

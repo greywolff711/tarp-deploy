@@ -7,7 +7,7 @@ const AddPrescription = () => {
     const [formdata, setFormdata] = useState({
         doctor:"",
         patient: "",
-        medicine: "",
+        medicines: [],
         instructions: "",
         });
 
@@ -21,7 +21,8 @@ const AddPrescription = () => {
         .then((res) => res.json())
         .then((data) => {
             setMed(data);
-            formdata['medicine']=med[0].name;
+            if(formdata['medicines'].indexOf(med[0].name)===-1)formdata['medicines'].push(med[0].name);
+            // console.log(formdata);
         })
         .catch((err) => {
             console.log(err);
@@ -81,7 +82,7 @@ const AddPrescription = () => {
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
                         <form onClick={e=>onsubmit(e)}>
                             <input className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300" placeholder="Enter Medicine" type='text' value={medSearch} onChange={e=>setmedSearch(e.target.value)}/>
-                            <button className="ml-2 font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white" type='button'>Search</button>
+                            <button className="ml-2 font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white" type='button'>Add to medicines</button>
                         </form>
                     </div><br/>
 
@@ -91,7 +92,7 @@ const AddPrescription = () => {
                         </label>
                         <textarea rows = "4" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
                         rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-address" type="text" 
-                        placeholder="Crocin 500mg" name="medicine" value={formdata.medicine} onChange={(e)=>onchange(e)}/>
+                        placeholder="Crocin 500mg" name="medicine" readOnly value={formdata.medicines.map(item=>(item+" "))} onChange={(e)=>onchange(e)}/>
                     </div> <br/>
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-instructions">

@@ -9,47 +9,69 @@ const Inpatient=require('../models/inpatient');
 const Outpatient=require('../models/outpatient');
 const Medicine=require('../models/medicine');
 
-router.post("/", async (req, res) => {
-  try {
-    // add the doctor id from the req pro
-    const { doctor,patient, medicine, instructions } = req.body;
-    inpatient_fetch=await Inpatient.find({phone:patient});
-    outpatient_fetch=await Outpatient.find({phoneNo:patient});
-    let patient_id=null;
-    if(inpatient_fetch.length===0&&outpatient_fetch.length!=0){patient_id=outpatient_fetch[0]._id;}
-    else if(outpatient_fetch.length===0&&inpatient_fetch.length!=0) patient_id=inpatient_fetch[0]._id;
-    else patient_id=inpatient_fetch[0]._id;
-    let doctor_fetch=await Doctor.find({phone :doctor});
-    let doctor_id=doctor_fetch[0]._id;
-    if(patient_id==null||doctor_id==undefined)return res.json({msg:'Invalid Phone numbers'})
-    // console.log(patient_id);
-    let medicine_fetch=await Medicine.find({name:medicine});
-    if(medicine_fetch===undefined)return res.json({msg:'Invalid Medicine Name'})
-    const fields = {};
-    console.log(medicine_fetch[0].count);
-    fields.count = Number(Number(medicine_fetch[0].count)-1);
-    try{
-      let r = await Medicine.findOneAndUpdate(
-        {_id: medicine_fetch[0]._id},
-        {$set:fields},
-        {new: true}
-      );
-    }
-    catch(err){
-        console.log(err);
-    }
-    const prescription = new Prescription({
-      doctor:doctor_id,
-      patient:patient_id,
-      medicine,
-      instructions,
-    });
-    await prescription.save();
-    res.json(prescription);
-  } catch (error) {
-    console.log(error.message);
-  }
-});
+// router.post("/", async (req, res) => {
+//   try {
+//     // add the doctor id from the req pro
+//     const { doctor,patient, medicine, instructions } = req.body;
+//     inpatient_fetch=await Inpatient.find({phone:patient});
+//     outpatient_fetch=await Outpatient.find({phoneNo:patient});
+//     let patient_id=null;
+//     if(inpatient_fetch.length===0&&outpatient_fetch.length!=0){patient_id=outpatient_fetch[0]._id;}
+//     else if(outpatient_fetch.length===0&&inpatient_fetch.length!=0) patient_id=inpatient_fetch[0]._id;
+//     else patient_id=inpatient_fetch[0]._id;
+//     let doctor_fetch=await Doctor.find({phone :doctor});
+//     let doctor_id=doctor_fetch[0]._id;
+//     if(patient_id==null||doctor_id==undefined)return res.json({msg:'Invalid Phone numbers'})
+//     // console.log(patient_id);
+//     let medicine_fetch=await Medicine.find({name:medicine});
+//     if(medicine_fetch===undefined)return res.json({msg:'Invalid Medicine Name'})
+//     const fields = {};
+//     console.log(medicine_fetch[0].count);
+//     fields.count = Number(Number(medicine_fetch[0].count)-1);
+//     try{
+//       let r = await Medicine.findOneAndUpdate(
+//         {_id: medicine_fetch[0]._id},
+//         {$set:fields},
+//         {new: true}
+//       );
+//     }
+//     catch(err){
+//         console.log(err);
+//     }
+//     const prescription = new Prescription({
+//       doctor:doctor_id,
+//       patient:patient_id,
+//       medicine,
+//       instructions,
+//     });
+//     await prescription.save();
+//     res.json(prescription);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// });
+
+router.post('/',async(req,res)=>{
+  const { doctor,patient, medicines, instructions } = req.body;
+  inpatient_fetch=await Inpatient.find({phone:patient});
+  outpatient_fetch=await Outpatient.find({phoneNo:patient});
+  let patient_id=null;
+  if(inpatient_fetch.length===0&&outpatient_fetch.length!=0){patient_id=outpatient_fetch[0]._id;}
+  else if(outpatient_fetch.length===0&&inpatient_fetch.length!=0) patient_id=inpatient_fetch[0]._id;
+  else patient_id=inpatient_fetch[0]._id;
+  let doctor_fetch=await Doctor.find({phone :doctor});
+  let doctor_id=doctor_fetch[0]._id;
+  if(patient_id==null||doctor_id==undefined)return res.json({msg:'Invalid Phone numbers'})
+
+  const prescription = new Prescription({
+    doctor:doctor_id,
+    patient:patient_id,
+    medicines,
+    instructions,
+  });
+  await prescription.save();
+  res.json(prescription);
+})
 
 router.get("/", async (req, res) => {
   try {

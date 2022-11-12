@@ -80,7 +80,7 @@ const ManagePrescription = () => {
                                 <h6 className="mb-0 leading-normal text-sm"><ViewRole id={item.patient}/></h6>
                                 </td>
                                 <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                <h6 className="mb-0 leading-normal text-sm">{item.medicine}</h6>
+                                <h6 className="mb-0 leading-normal text-sm">{item.medicines.map(i=>(i+" "))}</h6>
                                 </td>
                                 <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                 <h6 className="mb-0 leading-normal text-sm">{item.instructions}</h6>
