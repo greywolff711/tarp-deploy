@@ -9,7 +9,7 @@ var ObjectID = require('mongodb').ObjectID;
 
 router.post('/:patient_id/:doctor_id',async(req,res)=>{
     try {
-      console.log(req.params.doctor_id);
+      // console.log(req.params.doctor_id);
       inpatient_fetch=await Inpatient.find({phone:req.params.patient_id});
       outpatient_fetch=await Outpatient.find({phoneNo:req.params.patient_id});
       let patient_id=null;
@@ -17,9 +17,20 @@ router.post('/:patient_id/:doctor_id',async(req,res)=>{
       else patient_id=inpatient_fetch[0]._id;
         // console.log(inpatient.name);
         let doctor=await Doctor.find({phone :req.params.doctor_id});
-        console.log(doctor);
-        const {from,to,symptoms,paid}=req.body;
+        // console.log(doctor);
+        const {date,from,to,symptoms,paid}=req.body;
+        let prevBooking=await Appointment.findOne({date:date});
+        if(prevBooking!=undefined){
+          let bdate=new Date(date);
+          let pdate=new Date(prevBooking.date);
+          if(bdate.getUTCFullYear()===pdate.getUTCFullYear()&&bdate.getUTCMonth()==pdate.getUTCMonth()&&bdate.getUTCDate()==pdate.getUTCDate()){
+            if(from>=prevBooking.from||to<=prevBooking.to){
+              return res.json({msg:'Slot booked'});
+            }
+          }
+        }
         let newAppointment=new Appointment({
+            date,
             from:from,
             to:to,
             symptoms:symptoms,

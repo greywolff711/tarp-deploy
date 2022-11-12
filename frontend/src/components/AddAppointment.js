@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 const AddAppointment = () => {
     const [formData,setFormData]=useState({
-        date:new Date(),
+        date:"",
         from:"",
         to:"",
         symptoms:"",
@@ -33,6 +33,11 @@ const AddAppointment = () => {
             body: JSON.stringify(formData)
         }).then((data) => data.json() ).then((val) => {
             console.log(val);
+            if(val.msg==='Slot booked'){
+                console.log('qwe')
+                alert("SLOT ALREADY PRESENT IN THIS SLOT");
+            }
+            else alert("SUCCESSFULLY BOOKED")
         })
     }
   return (
