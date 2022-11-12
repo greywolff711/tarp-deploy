@@ -87,6 +87,8 @@ const ManageAppointments = () => {
                     <div className="relative flex flex-col min-w-0 mb-6 break-words bg-white pb-6 border-1 border-black border-solid shadow-soft-xl rounded bg-clip-border">
                     <div className="p-2 pb-0 mb-0 bg-white border-1 border-b-solid rounded border-black">
                         <h6 className="text-2xl uppercase">Appointments</h6>
+                        <h6 className="text-2xl uppercase">Appointments in forenoon</h6>
+                        <h6 className="text-2xl uppercase">Appointments in afternoon</h6>
                         <br/>
                         <Link to={"/"+l+"/AddAppointment"} ><button className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white">ADD</button></Link>
                     </div>

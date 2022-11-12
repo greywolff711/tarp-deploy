@@ -6,10 +6,7 @@ const AppointmentSchema=mongoose.Schema({
         type: Date,
         required: true,
     },
-    from:{
-        type:String
-    },
-    to:{
+    timing:{
         type:String
     },
     symptoms:{
