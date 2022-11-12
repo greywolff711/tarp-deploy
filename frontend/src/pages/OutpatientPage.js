@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import Footer from '../components/Footer'
 import { useLocation } from 'react-router-dom'
 import OutpatientNavabar from '../components/OutpatientNavbar'
@@ -12,16 +12,23 @@ import AddQuery from '../components/AddQuery'
 const OutpatientPage = () => {
     const location = useLocation()
     console.log(location.pathname)
-    let data ={
-      "Prescription" :[
-        {
-          "patient":"John Doe",
-          "doctor":"Doe John",
-          "medicine":"Crocin 500mg",
-          "instructions":"0-1-1 after food"
-        }
-        ]
-    }
+    const [prescription,setprescription]=useState([]);
+    // let data ={
+    //   "Prescription" :[
+    //     {
+    //       "patient":"John Doe",
+    //       "doctor":"Doe John",
+    //       "medicine":"Crocin 500mg",
+    //       "instructions":"0-1-1 after food"
+    //     }
+    //     ]
+    // }
+    useEffect(()=>{
+      fetch(`http://localhost:5000/api/prescription/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+        setprescription(val);
+        // console.log(val);
+      })
+    },[])
     const findComponent = () => { 
         if(location.pathname === "/outpatient/EditOutpatient"){
             return <EditOutpatient />
@@ -33,10 +40,10 @@ const OutpatientPage = () => {
           return <AddQuery />
         }
         else if(location.pathname === "/outpatient/ViewPrescription" ){
-          return <ViewPrescription data={data}/>
+          return <ViewPrescription data={prescription}/>
         }
         else if(location.pathname === "/outpatient/ViewAppointment" ){
-          return <ViewAppointment  />
+          return <ViewAppointment />
         }
         else if(location.pathname === "/outpatient/AddAppointmentPatient" ){
           return <AddAppointmentPatient/>

@@ -40,6 +40,28 @@ router.get('/',async (req,res)=>{
     }
 });
 
+router.post('/quantity',async(req,res)=>{
+    const {quantity,name}=req.body;
+    const med=await Medicine.find({name});
+    // console.log(med[0].count)
+    if(quantity>med[0].count)return res.json({msg:'INVALID QUANTITY'});
+    else {
+        const fields={};
+        fields.count = Number(Number(med[0].count)-quantity);
+        try{
+            let r = await Medicine.findOneAndUpdate(
+              {_id: med[0]._id},
+              {$set:fields},
+              {new: true}
+            );
+        }
+        catch(err){
+            console.log(err);
+        }
+        return res.json({msg:'ADDED TO THE MEDICINES'})
+    }
+})
+
 router.get('/:medicine_id',async(req,res)=>{
     try {
         let medSearch=req.params.medicine_id.toLocaleLowerCase();

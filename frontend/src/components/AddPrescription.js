@@ -1,6 +1,6 @@
 import pict from "./logos/main_logo_v2.svg";
 import pictblack from "./logos/main_logo_black.svg";
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import { Link } from "react-router-dom";
 
 const AddPrescription = () => {
@@ -12,23 +12,52 @@ const AddPrescription = () => {
         });
 
     const [med,setMed]=useState([]);
-    const [medSearch,setmedSearch]=useState();
+    const [meds,setMeds]=useState([]);
+    const [medSearch,setmedSearch]=useState("crocin");
     const onsubmit=(e)=>{
         // console.log(medSearch);
+        e.preventDefault();
         fetch(`http://localhost:5000/api/medicine/${medSearch}`, {
             method: "GET",
         })
         .then((res) => res.json())
         .then((data) => {
             setMed(data);
-            if(formdata['medicines'].indexOf(med[0].name)===-1)formdata['medicines'].push(med[0].name);
+            console.log(medSearch)
+            if(med[0]!=undefined){
+                var quantity=prompt('How many?');
+                let medName=med[0].name;
+                fetch("http://localhost:5000/api/medicine/quantity", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({quantity,"name":medName}),
+                        })
+                        .then((res) => res.json())
+                        .then((data) => {
+                            if(data.msg==='ADDED TO THE MEDICINES'){
+                                alert('ADDED');
+                                if(formdata['medicines'].indexOf(med[0].name)===-1)formdata['medicines'].push(med[0].name);
+                            }
+                            else alert('INVALID QUANTITY');
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+            }
             // console.log(formdata);
         })
         .catch((err) => {
             console.log(err);
         });
     }
-
+    useEffect(()=>{
+        fetch(`http://localhost:5000/api/medicine`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+          setMeds(val);
+          setmedSearch(val[0].name);
+        })
+    },[])
     const onchange=(e)=>{
         setFormdata({...formdata,[e.target.name]:e.target.value});
         console.log(formdata);
@@ -81,19 +110,17 @@ const AddPrescription = () => {
                     
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
                         
-                        <form onClick={e=>onsubmit(e)}>
+                        <form >
                             {/* <select className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300" placeholder="Enter Medicine" type='text' value={medSearch} onChange={e=>setmedSearch(e.target.value)}/> */}
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-medicines">
                                 Medicines
                             </label>
                             <select className="w-[12em] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-3 mr-6
                         leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-medicine-search" type="text" 
-                        placeholder="crocin" name="medicine-search" onChange={e=>onchange(e)}> 
-                            <option value={"crocin"}>Crocin</option>
-                            <option value={"dolo"}>Dolo-650</option>
-                            <option value={"allegra"}>Allegra</option>
+                        placeholder="crocin" name="medSearch" onChange={e=>setmedSearch(e.target.value)}> 
+                            {meds.map(item=><option>{item.name}</option>)}
                         </select>
-                            <button className="ml-2 font-semibold leading-tight rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white" type='button'>Add to medicines</button>
+                            <button className="ml-2 font-semibold leading-tight rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white" onClick={e=>onsubmit(e)} type='button'>Add to medicines</button>
                         </form>
                     </div><br/>
 
@@ -109,7 +136,7 @@ const AddPrescription = () => {
                         </label>
                         <input rows = "4" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
                         rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-quantity" type="text" 
-                        placeholder="John Doe" name="quantity" onChange={(e)=>onchange(e)}/>
+                        placeholder="10" name="quantity" onChange={(e)=>onchange(e)}/>
                     </div> <br/>
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-instructions">

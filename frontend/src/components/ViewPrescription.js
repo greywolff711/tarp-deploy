@@ -8,8 +8,8 @@ const ViewPrescription = ({data}) => {
   const [search,setSearch]=useState('');
   const [newData,setNewData]=useState(data);
   const l = window.location.pathname.replace(/^\/([^\/]*).*$/, '$1');
-//   console.log(l);    
-console.log(newData);
+//   console.log(l);
+    console.log(data);
     const onchange=(e)=>{
         setSearch(e.target.value);
     }
@@ -17,7 +17,7 @@ console.log(newData);
     const onsubmit=(e)=>{
         e.preventDefault();
         const res=data.filter(item=>{
-            return item.medicine.toLowerCase()===search.toLowerCase();
+            if(item.medicines.indexOf(search.toLowerCase())!=-1)return true
         });
         setNewData(res);
     }
