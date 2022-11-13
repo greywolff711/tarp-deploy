@@ -94,17 +94,40 @@ router.post(
         // fields1.timing=timing;
         // await AppointmentSlot.updateOne({_id:slot._id,timing:appointment.timing},fields1);
         // slot.timing.unshift(timing);
+          console.log(appointment)
         // await slot.save();
         // console.log(appointment.timing);
         // console.log(slot);
-        newSlot=slot.timing;
-        newSlot.splice(newSlot.findIndex(e => e === appointment.timing),1);
-        // console.log(slot);
-        newSlot.push(timing);
-        // console.log(slot);
-        await slot.save();
+        if(slot!=null){
+          // newSlot=slot.timing;
+          // newSlot.splice(newSlot.findIndex(e => e === appointment.timing),1);
+          // // console.log(slot);
+          // newSlot.push(timing);
+          // // console.log(slot);
+          // await slot.save();
+          oldSlot=await AppointmentSlot.findOne({date:new Date(appointment.date)});
+          oldSlot.timing.splice(oldSlot.timing.findIndex(e => e === appointment.timing),1);
+          // console.log(oldSlot.timing);
+          await oldSlot.save();
+          slot.timing.unshift(timing);
+          // console.log(oldSlot);
+          // console.log(slot);
+          // console.log(newSlot)
+          await slot.save();
+        }
+        else{
+          let newSlot=new AppointmentSlot({date:new Date(from)});
+          oldSlot=await AppointmentSlot.findOne({date:new Date(appointment.date)});
+          oldSlot.timing.splice(oldSlot.timing.findIndex(e => e === appointment.timing),1);
+          // console.log(oldSlot.timing);
+          await oldSlot.save();
+          newSlot.timing.unshift(timing);
+          // console.log(newSlot)
+          await newSlot.save();
+          // res.json({msg:"Appointment made"});
+        }
         fields.timing=timing;
-        fields.from=from;
+        fields.date=from;
       }
       if(symptoms.length !=0)
       {
