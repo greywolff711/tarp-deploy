@@ -18,12 +18,13 @@ router.post('/',
         if(!errors.isEmpty()){
             return res.status(400).json({errors:errors.array()});
         }
-
         const {name,description,count}=req.body;
 
         try {
-            let medicine=new Medicine({name,description,count});
+            let newName=name.toLowerCase();
+            let medicine=new Medicine({"name":newName,description,count});
             await medicine.save();
+            console.log(medicine)
             res.json({msg:'Medicine Saved'});
         } catch (error) {
             console.log(error.message);
@@ -39,9 +40,32 @@ router.get('/',async (req,res)=>{
     }
 });
 
+router.post('/quantity',async(req,res)=>{
+    const {quantity,name}=req.body;
+    const med=await Medicine.find({name});
+    // console.log(med[0].count)
+    if(quantity>med[0].count)return res.json({msg:'INVALID QUANTITY'});
+    else {
+        const fields={};
+        fields.count = Number(Number(med[0].count)-quantity);
+        try{
+            let r = await Medicine.findOneAndUpdate(
+              {_id: med[0]._id},
+              {$set:fields},
+              {new: true}
+            );
+        }
+        catch(err){
+            console.log(err);
+        }
+        return res.json({msg:'ADDED TO THE MEDICINES'})
+    }
+})
+
 router.get('/:medicine_id',async(req,res)=>{
     try {
-        const medicine=await Medicine.find({name:req.params.medicine_id});
+        let medSearch=req.params.medicine_id.toLocaleLowerCase();
+        const medicine=await Medicine.find({name:medSearch});
         if(!medicine)return res.status(400).json({error:[{msg:'Invalid ID'}]});
         res.json(medicine);
     } catch (error) {

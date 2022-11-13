@@ -12,9 +12,9 @@ const PrescriptionSchema=mongoose.Schema({
     image: {
         type: String
     },
-    medicine: {
-        type: String,
-    },
+    medicines: [{
+        type:String
+    }],
     instructions: {
         type: String,
     },

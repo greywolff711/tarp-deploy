@@ -4,12 +4,13 @@ const { check, validationResult } = require('express-validator');
 const Inpatient=require('../models/inpatient');
 const Outpatient=require('../models/outpatient');
 const Appointment=require('../models/appointment');
+const AppointmentSlot=require('../models/AppointmentSlot');
 const Doctor=require('../models/doctor');
 var ObjectID = require('mongodb').ObjectID;
 
 router.post('/:patient_id/:doctor_id',async(req,res)=>{
     try {
-      console.log(req.params.doctor_id);
+      // console.log(req.params.doctor_id);
       inpatient_fetch=await Inpatient.find({phone:req.params.patient_id});
       outpatient_fetch=await Outpatient.find({phoneNo:req.params.patient_id});
       let patient_id=null;
@@ -17,9 +18,20 @@ router.post('/:patient_id/:doctor_id',async(req,res)=>{
       else patient_id=inpatient_fetch[0]._id;
         // console.log(inpatient.name);
         let doctor=await Doctor.find({phone :req.params.doctor_id});
-        console.log(doctor);
-        const {from,to,symptoms,paid}=req.body;
+        // console.log(doctor);
+        const {date,from,to,symptoms,paid}=req.body;
+        let prevBooking=await Appointment.findOne({date:date});
+        if(prevBooking!=undefined){
+          let bdate=new Date(date);
+          let pdate=new Date(prevBooking.date);
+          if(bdate.getUTCFullYear()===pdate.getUTCFullYear()&&bdate.getUTCMonth()==pdate.getUTCMonth()&&bdate.getUTCDate()==pdate.getUTCDate()){
+            if((from<=prevBooking.from&&(to<=prevBooking.to||to>=prevBooking.from))||(from>=prevBooking.from&&to<=prevBooking.to)||((from<=prevBooking.to||from<=prevBooking.from)&&to>=prevBooking.to)){
+              return res.json({msg:'Slot booked'});
+            }
+          }
+        }
         let newAppointment=new Appointment({
+            date,
             from:from,
             to:to,
             symptoms:symptoms,
@@ -33,6 +45,12 @@ router.post('/:patient_id/:doctor_id',async(req,res)=>{
     } catch (error) {
         console.log(error);
     }
+})
+
+router.post('/slottime',async(req,res)=>{
+  const{date}=req.body;
+  const appoint=await AppointmentSlot.find({date:new Date(date)});
+  return res.json(appoint[0].timing);
 })
 
 router.get('/:patient_id',async(req,res)=>{
@@ -115,6 +133,47 @@ router.get('/',async(req,res)=>{
     } catch (err) {
         console.log(err.message);
     }
+})
+
+//@trial route
+router.post('/slot/:patient_id/:doctor_id',async(req,res)=>{
+  try {
+    // console.log(req.params.doctor_id);
+    inpatient_fetch=await Inpatient.find({phone:req.params.patient_id});
+    outpatient_fetch=await Outpatient.find({phoneNo:req.params.patient_id});
+    let patient_id=null;
+    if(inpatient_fetch.length===0){patient_id=outpatient_fetch[0]._id;}
+    else patient_id=inpatient_fetch[0]._id;
+      let doctor=await Doctor.find({phone :req.params.doctor_id});
+      const {date,timing,symptoms,paid}=req.body;
+      // let prevBooking=await Appointment.findOne({date:date});
+      // if(prevBooking!=undefined){
+      //   let bdate=new Date(date);
+      //   let pdate=new Date(prevBooking.date);
+      //   if(bdate.getUTCFullYear()===pdate.getUTCFullYear()&&bdate.getUTCMonth()==pdate.getUTCMonth()&&bdate.getUTCDate()==pdate.getUTCDate()){
+      //     if((from<=prevBooking.from&&(to<=prevBooking.to||to>=prevBooking.from))||(from>=prevBooking.from&&to<=prevBooking.to)||((from<=prevBooking.to||from<=prevBooking.from)&&to>=prevBooking.to)){
+      //       return res.json({msg:'Slot booked'});
+      //     }
+      //   }
+      // }
+      let newAppointment=new Appointment({
+          date,
+          timing,
+          symptoms:symptoms,
+          patient:patient_id,
+          doctor:doctor[0]._id,
+          paid:paid
+      });
+      // console.log(doctor[0]._id);
+      await newAppointment.save();
+      let slot=new AppointmentSlot({date});
+      slot.timing.unshift(timing);
+      await slot.save();
+      res.json({msg:"Appointment made"});
+  } catch (error) {
+      console.log(error);
+  }
+  
 })
 
 router.delete("/:appointment_id", async (req, res) => {

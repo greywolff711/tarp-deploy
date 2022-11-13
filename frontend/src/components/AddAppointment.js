@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 const AddAppointment = () => {
     const [formData,setFormData]=useState({
-        date:new Date(),
+        date:"",
         from:"",
         to:"",
         symptoms:"",
@@ -33,6 +33,11 @@ const AddAppointment = () => {
             body: JSON.stringify(formData)
         }).then((data) => data.json() ).then((val) => {
             console.log(val);
+            if(val.msg==='Slot booked'){
+                console.log('qwe')
+                alert("SLOT ALREADY PRESENT IN THIS SLOT");
+            }
+            else alert("SUCCESSFULLY BOOKED")
         })
     }
   return (
@@ -51,23 +56,23 @@ const AddAppointment = () => {
                         rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-date" type="date" 
                         placeholder={"24-09-2022"} name="date" onChange={e=>onchange(e)}/><br/>
                     </div>
-                    <div className="flex flex-wrap -mx-3 mb-6">
+                    {/* <div className="flex flex-wrap -mx-3 mb-6">
                         <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-from-time">
                             From
                             </label>
                             <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
-                            mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-from-time" type="text" placeholder="9:15" name="from" onChange={e=>onchange(e)}/>
+                            mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-from-time" type="time" placeholder="9:15" name="from" onChange={e=>onchange(e)}/>
                         </div>
                         <div className="w-full md:w-1/2 px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-to-time">
                             To
                             </label>
                             <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
-                            leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-to-time" type="text" 
+                            leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-to-time" type="time" 
                             placeholder="10:30" name="to" onChange={e=>onchange(e)}/>
                         </div> 
-                    </div>
+                    </div> */}
                     <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-symptoms">
                         Symptoms
