@@ -6,25 +6,45 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 const AddAppointment = () => {
     const [formData,setFormData]=useState({
-        date:"",
         from:"",
-        to:"",
+        // from:"",
+        // to:"",
+        timing:"",
         symptoms:"",
         patient:"",
         doctor:"",
         paid:"",
     });
-
+    const [timeoptions,setTimeOptions]=useState([]);
+    const timingarr=["09:00-10:00","10:00-11:00","11:00-12:00"];
     const onchange=(e)=>{
         setFormData({...formData,[e.target.name]:e.target.value});
         console.log(formData);
+        if(e.target.name==="from"){
+            let from=e.target.value;
+            fetch(`http://localhost:5000/api/appointment/slottime`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({from})
+            }).then((data) => data.json()).then((val) => {
+                setTimeOptions(timingarr.filter(x=>!val.includes(x)));
+                let timing;
+                if(timingarr.filter(x=>!val.includes(x)).length===1)timing=timingarr.filter(x=>!val.includes(x))[0];
+                // console.log(timingarr.filter(x=>!val.includes(x)))
+                setFormData({...formData,"timing":timing,"from":e.target.value});
+            });
+            // setFormData({...formData,"from":e.target.value})
+        }
+        // }
     }
 
     const onsubmit=(e)=>{
         console.log(formData);
         e.preventDefault();
         // console.log(`http://localhost:5000/api/appointment/${formData.patient}/${formData.doctor}`)
-        fetch(`http://localhost:5000/api/appointment/${formData.patient}/${formData.doctor}`, {
+        fetch(`http://localhost:5000/api/appointment/slot/${formData.patient}/${formData.doctor}`, {
             method: "POST",
             headers: {
                 // 'x-auth-token':JSON.parse(localStorage.user).token,
@@ -54,8 +74,21 @@ const AddAppointment = () => {
                         </label>
                         <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
                         rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-date" type="date" 
-                        placeholder={"24-09-2022"} name="date" onChange={e=>onchange(e)}/><br/>
+                        placeholder={"24-09-2022"} name="from" onChange={e=>onchange(e)}/><br/>
                     </div>
+                    <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-slots">
+                            Slots
+                            </label>
+                            <select className="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
+                            leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-slots" type="text" 
+                            placeholder="False" name="timing" onChange={e=>onchange(e)}> 
+                                {/* <option value="1">09:00-10:00</option>
+                                <option value="2">10:00-11:00</option>
+                                <option value="3">11:00-12:00</option> */}
+                                {timeoptions.map(item=><option>{item}</option>)}
+                            </select>
+                    </div> <br/><br/>
                     {/* <div className="flex flex-wrap -mx-3 mb-6">
                         <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-from-time">

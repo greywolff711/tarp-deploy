@@ -48,9 +48,11 @@ router.post('/:patient_id/:doctor_id',async(req,res)=>{
 })
 
 router.post('/slottime',async(req,res)=>{
-  const{date}=req.body;
-  const appoint=await AppointmentSlot.find({date:new Date(date)});
-  return res.json(appoint[0].timing);
+  const{from}=req.body;
+  // console.log(date);
+  const appoint=await AppointmentSlot.find({date:new Date(from)});
+  if(appoint.length!=0)return res.json(appoint[0].timing);
+  else return res.json([]);
 })
 
 router.get('/:patient_id',async(req,res)=>{
@@ -74,16 +76,35 @@ router.post(
     "/:appointment_id",
     // auth,
     async (req, res) => {
-      const {from,to,symptoms,patient,doctor,paid}=req.body;
+      const {from,timing,symptoms,patient,doctor,paid}=req.body;
       console.log(req.body)
       const fields={};
-      if(from.length != 0 )
-      {
+      // if(from.length != 0 )
+      // {
+      //   fields.from=from;
+      // }
+      // if(to.length != 0)
+      // {
+      //   fields.to=to;
+      // }
+      if(timing.length!=0){
+        let slot=await AppointmentSlot.findOne({date:new Date(from)});
+        let appointment=await Appointment.findById({_id:req.params.appointment_id});
+        // let fields1={};
+        // fields1.timing=timing;
+        // await AppointmentSlot.updateOne({_id:slot._id,timing:appointment.timing},fields1);
+        // slot.timing.unshift(timing);
+        // await slot.save();
+        // console.log(appointment.timing);
+        // console.log(slot);
+        newSlot=slot.timing;
+        newSlot.splice(newSlot.findIndex(e => e === appointment.timing),1);
+        // console.log(slot);
+        newSlot.push(timing);
+        // console.log(slot);
+        await slot.save();
+        fields.timing=timing;
         fields.from=from;
-      }
-      if(to.length != 0)
-      {
-        fields.to=to;
       }
       if(symptoms.length !=0)
       {
@@ -145,7 +166,8 @@ router.post('/slot/:patient_id/:doctor_id',async(req,res)=>{
     if(inpatient_fetch.length===0){patient_id=outpatient_fetch[0]._id;}
     else patient_id=inpatient_fetch[0]._id;
       let doctor=await Doctor.find({phone :req.params.doctor_id});
-      const {date,timing,symptoms,paid}=req.body;
+      const {from,timing,symptoms,paid}=req.body;
+      let date=from;
       // let prevBooking=await Appointment.findOne({date:date});
       // if(prevBooking!=undefined){
       //   let bdate=new Date(date);
@@ -164,21 +186,33 @@ router.post('/slot/:patient_id/:doctor_id',async(req,res)=>{
           doctor:doctor[0]._id,
           paid:paid
       });
+      // console.log(timing)
       // console.log(doctor[0]._id);
       await newAppointment.save();
-      let slot=new AppointmentSlot({date});
-      slot.timing.unshift(timing);
-      await slot.save();
-      res.json({msg:"Appointment made"});
+      let slot=await AppointmentSlot.findOne({date});
+      if(slot===null){
+        let newSlot=new AppointmentSlot({date});
+        newSlot.timing.unshift(timing);
+        await newSlot.save();
+        res.json({msg:"Appointment made"});
+      }
+      else{
+        // console.log(slot)
+        slot.timing.unshift(timing);
+        await slot.save();
+        res.json({msg:"Appointment made"});
+      }
   } catch (error) {
       console.log(error);
   }
   
 })
 
-router.delete("/:appointment_id", async (req, res) => {
+router.delete("/:appointment_id/:appointment_date/:appointment_timing", async (req, res) => {
     try {
       await Appointment.findOneAndDelete({ _id: req.params.appointment_id });
+      let slot=await AppointmentSlot.findOne({date:new Date(req.params.appointment_date)});
+      await AppointmentSlot.updateOne({_id:slot._id},{ $pull: {timing:req.params.appointment_timing} });
       res.json({ msg: "Appointment deleted successfully." });
     } catch (err) {
       console.log(err);

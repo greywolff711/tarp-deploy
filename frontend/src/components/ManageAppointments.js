@@ -18,9 +18,9 @@ const ManageAppointments = () => {
         })
     },[]);
     // console.log(appointment);
-    const deleteAppointment=(id)=>{
+    const deleteAppointment=(id,date,timing)=>{
       // console.log('qweqwe');
-      fetch(`http://localhost:5000/api/appointment/${id}`, {
+      fetch(`http://localhost:5000/api/appointment/${id}/${date}/${timing}`, {
           method: "DELETE"
       }).then((data) => data.json() ).then((val) => {
           console.log(val);
@@ -87,8 +87,6 @@ const ManageAppointments = () => {
                     <div className="relative flex flex-col min-w-0 mb-6 break-words bg-white pb-6 border-1 border-black border-solid shadow-soft-xl rounded bg-clip-border">
                     <div className="p-2 pb-0 mb-0 bg-white border-1 border-b-solid rounded border-black">
                         <h6 className="text-2xl uppercase">Appointments</h6>
-                        <h6 className="text-2xl uppercase">Appointments in forenoon</h6>
-                        <h6 className="text-2xl uppercase">Appointments in afternoon</h6>
                         <br/>
                         <Link to={"/"+l+"/AddAppointment"} ><button className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white">ADD</button></Link>
                     </div>
@@ -100,8 +98,8 @@ const ManageAppointments = () => {
                             <tr>
                                 <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">ID</th>
                                 <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">Date</th>
-                                <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">FROM</th>
-                                <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">TO</th>
+                                {/* <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">FROM</th> */}
+                                <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">TIMING</th>
                                 <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">Symptoms</th>
                                 <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">PATIENT</th>
                                 <th className="px-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-m border-b-solid tracking-none whitespace-nowrap text-grey-400 opacity-70">DOCTOR</th>
@@ -127,11 +125,11 @@ const ManageAppointments = () => {
                                     <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                     <h6 className="mb-0 leading-normal text-sm">{item.date}</h6>
                                     </td>
-                                    <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                    {/* <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                     <h6 className="mb-0 leading-normal text-sm">{item.from}</h6>
-                                    </td>
+                                    </td> */}
                                     <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                    <h6 className="mb-0 leading-normal text-sm">{item.to}</h6>
+                                    <h6 className="mb-0 leading-normal text-sm">{item.timing}</h6>
                                     </td>
                                     <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                     <h6 className="mb-0 leading-normal text-sm">{item.symptoms}</h6>
@@ -151,7 +149,7 @@ const ManageAppointments = () => {
                                     </td>
                                     <td className="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
                                     <Link to={"/"+l+"/EditAppointment"} state={{ id:item._id}} className="mr-2 font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white"> Edit </Link>
-                                    <button href="" className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white" onClick={()=>deleteAppointment(item._id)}> Delete </button>
+                                    <button href="" className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white" onClick={()=>deleteAppointment(item._id,item.date,item.timing)}> Delete </button>
                                     </td>
                                 </tr>
                             
