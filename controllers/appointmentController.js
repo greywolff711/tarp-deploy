@@ -105,15 +105,22 @@ router.post(
           // newSlot.push(timing);
           // // console.log(slot);
           // await slot.save();
-          oldSlot=await AppointmentSlot.findOne({date:new Date(appointment.date)});
-          oldSlot.timing.splice(oldSlot.timing.findIndex(e => e === appointment.timing),1);
-          // console.log(oldSlot.timing);
-          await oldSlot.save();
-          slot.timing.unshift(timing);
-          // console.log(oldSlot);
-          // console.log(slot);
+          if(slot.timing.length!=0){
+            oldSlot=await AppointmentSlot.findOne({date:new Date(appointment.date)});
+            // console.log(oldSlot);
+            oldSlot.timing.splice(oldSlot.timing.findIndex(e => e === appointment.timing),1);
+            // console.log(oldSlot);
+            oldSlot.timing.unshift(timing);
+            // console.log(oldSlot);
+            await oldSlot.save();
+          }
+          else{
+            slot.timing.unshift(timing);
+            console.log(slot);
+            await slot.save();
+          }
           // console.log(newSlot)
-          await slot.save();
+          // await slot.save();
         }
         else{
           let newSlot=new AppointmentSlot({date:new Date(from)});
@@ -227,6 +234,7 @@ router.post('/slot/:patient_id/:doctor_id',async(req,res)=>{
       }
   } catch (error) {
       console.log(error);
+      return res.json({err:error.message});
   }
   
 })
