@@ -9,6 +9,9 @@ const PrescriptionSchema=mongoose.Schema({
     patient: {
         type: ObjectId,
     },
+    image: {
+        type: String
+    },
     medicine: {
         type: String,
     },

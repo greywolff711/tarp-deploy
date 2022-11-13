@@ -9,7 +9,19 @@ const Inpatient=require('../models/inpatient');
 const Outpatient=require('../models/outpatient');
 const Medicine=require('../models/medicine');
 
-router.post("/", async (req, res) => {
+const multer  = require('multer')
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+const upload = multer({ storage })
+
+
+router.post("/", upload.single('image'), async (req, res) => {
   try {
     // add the doctor id from the req pro
     const { doctor,patient, medicine, instructions } = req.body;
@@ -41,6 +53,7 @@ router.post("/", async (req, res) => {
     const prescription = new Prescription({
       doctor:doctor_id,
       patient:patient_id,
+      image: req.file.filename,
       medicine,
       instructions,
     });

@@ -88,6 +88,7 @@ const ManagePrescription = () => {
                                 <td className="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
                                 <Link to={"/"+l+"/EditPrescription"} state={{ id:item._id}}  className="mr-2 font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white"> Edit </Link>
                                 <button className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white" onClick={()=>deletePresription(item._id)}> Delete </button>
+                                <a className='font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white mx-2' href={`http://localhost:5000/${item.image}`}>prescription</a>
                                 </td>
                             </tr>
                         

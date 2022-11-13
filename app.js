@@ -10,6 +10,7 @@ connectDB();
 const app = express();
 app.use(cors())
 app.use(express.json({extended:false}))
+app.use(express.static(path.join(__dirname, 'public')))
 // app.use(bodyParser.json())
 
 // app.get('/',(req,res)=>res.send('API RUNNING'));
