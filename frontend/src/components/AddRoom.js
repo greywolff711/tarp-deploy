@@ -15,7 +15,7 @@ const AddRoom = () => {
     });
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/api/rooms`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/rooms`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
           setRooms(val);
         })
     },[])
@@ -28,7 +28,7 @@ const AddRoom = () => {
     const onsubmit=(e)=>{
         e.preventDefault();
         console.log(formData);
-        fetch(`http://localhost:5000/api/bookedRoom/`, {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/bookedRoom/`, {
             method: "POST",
             headers: {
                 // 'x-auth-token':JSON.parse(localStorage.user).token,

@@ -12,14 +12,14 @@ const ManageReceptionist = () => {
 
   const [receptionist,setreceptionist]=useState([]);
     useEffect(()=>{
-        fetch(`http://localhost:5000/api/receptionist/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/receptionist/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
           setreceptionist(val);
         })
     },[])
     console.log(receptionist);
     const deleteReceptionist=(id)=>{
       console.log('qweqwe');
-      fetch(`http://localhost:5000/api/receptionist/${id}`, {
+      fetch(`https://pure-reef-02809.herokuapp.com/api/receptionist/${id}`, {
           method: "DELETE"
       }).then((data) => data.json() ).then((val) => {
           console.log(val);

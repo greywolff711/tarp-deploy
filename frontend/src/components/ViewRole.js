@@ -7,25 +7,25 @@ function ViewRole({id}) {
     const [outpatient,setOutpatient]=useState();
     const [room,setRoom]=useState();
     useEffect(()=>{
-        fetch(`http://localhost:5000/api/inpatient/${id}`, {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/inpatient/${id}`, {
             method: "GET",
         }).then((data) => data.json() ).then((val) => {
             // console.log(val);
             setInpatient(val);
         })
-        fetch(`http://localhost:5000/api/doctor/${id}`, {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/doctor/${id}`, {
             method: "GET",
         }).then((data) => data.json() ).then((val) => {
             // console.log(val);
             setDoctor(val);
         })
-        fetch(`http://localhost:5000/api/outpatient/${id}`, {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/outpatient/${id}`, {
             method: "GET",
         }).then((data) => data.json() ).then((val) => {
             // console.log(val);
             setOutpatient(val);
         })
-        fetch(`http://localhost:5000/api/rooms/${id}`, {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/rooms/${id}`, {
             method: "GET",
         }).then((data) => data.json() ).then((val) => {
             console.log(val);
