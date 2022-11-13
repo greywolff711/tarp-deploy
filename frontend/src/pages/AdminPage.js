@@ -23,6 +23,10 @@ import AddReceptionist from '../components/AddReceptionist'
 import AddAppointment from '../components/AddAppointment'
 import AddInventory from '../components/AddInventory'
 import AddPharmacist from '../components/AddPharmacist'
+import AddBill from '../components/AddBill'
+import ManageBill from '../components/ManageBill'
+import EditBill from '../components/EditBill'
+
 // import AddAppointment from '../components/AddAppointment'
 const AdminPage = () => {
     const location = useLocation()
@@ -91,6 +95,15 @@ const AdminPage = () => {
         }
         else if(location.pathname === "/admin/AddPharmacist" ){
             return <AddPharmacist />
+        }
+        else if(location.pathname === "/admin/AddBill" ){
+            return <AddBill />
+        }
+        else if(location.pathname === "/admin/ManageBill" ){
+            return <ManageBill />
+        }
+        else if(location.pathname === "/admin/EditBill" ){
+            return <EditBill />
         }
         // else if(location.pathname === "/AddAppointment" ){
         //     return <AddAppointment />
