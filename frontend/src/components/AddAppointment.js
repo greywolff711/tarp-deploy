@@ -27,6 +27,7 @@ const AddAppointment = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
+            //minor change
             body: JSON.stringify({from})
             }).then((data) => data.json()).then((val) => {
                 setTimeOptions(timingarr.filter(x=>!val.includes(x)));
