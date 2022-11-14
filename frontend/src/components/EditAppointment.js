@@ -21,7 +21,7 @@ const EditAppointment = () => {
     // console.log(id)
     const [data,setData]=useState([]);
     const [timeoptions,setTimeOptions]=useState([]);
-    const timingarr=["09:00-10:00","10:00-11:00","11:00-12:00"];
+    const timingarr=["09:00-10:00","10:00-11:00","11:00-12:00","13:00-14:00","14:00-15:00","15:00-16:00"];
     const onchange=(e)=>{
         setFormData({...formData,[e.target.name]:e.target.value});
         console.log(formData);
