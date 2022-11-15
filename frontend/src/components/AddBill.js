@@ -26,12 +26,12 @@ const AddBill = () => {
         e.preventDefault();
         let other_costs=0;
         if(formData.consultation=="true")other_costs+=100;//adding the consultation costs here
-        if(formData.tests==="Blood test")other_costs+=100;
-        else if(formData.tests==="LFT")other_costs+=200;
-        else if(formData.tests==="COVID")other_costs+=300;
-        if(formData.xray==="Chest")other_costs+=100;
-        if(formData.xray==="Kidney")other_costs+=200;
-        if(formData.xray==="Bones")other_costs+=300;
+        if(formData.tests==="Blood test (Rs.100)")other_costs+=100;
+        else if(formData.tests==="LFT (Rs.200)")other_costs+=200;
+        else if(formData.tests==="COVID (Rs.300)")other_costs+=300;
+        if(formData.xray==="Chest (Rs.100)")other_costs+=100;
+        if(formData.xray==="Kidney (Rs.200)")other_costs+=200;
+        if(formData.xray==="Bones (Rs.300)")other_costs+=300;
         let total_cost=other_costs;
         formData['cost']=Number(formData['cost'])+total_cost;
 
@@ -94,7 +94,7 @@ const AddBill = () => {
                         <select className="appearance-none block w-[120px] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
                         leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-consult" type="text" 
                         placeholder="no" name="consultation" onChange={e=>onchange(e)}> 
-                            <option value={true}>Yes</option>
+                            <option value={true}>Yes (Rs.100)</option>
                             <option value={false}>No</option>
                         </select>
                     </div>
@@ -106,9 +106,9 @@ const AddBill = () => {
                             leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-test1" type="text" 
                             placeholder="test1" name="tests" onChange={e=>onchange(e)}> 
                                 <option value="None">None</option>
-                                <option value="Blood Test">Blood Test</option>
-                                <option value="LFT">LFT</option>
-                                <option value="COVID">COVID Test</option>
+                                <option value="Blood Test (Rs.100)">Blood Test (Rs.100)</option>
+                                <option value="LFT (Rs.200)">LFT (Rs.200)</option>
+                                <option value="COVID (Rs.300)">COVID Test (Rs.300)</option>
                             </select>  
                     </div>
 
@@ -120,9 +120,9 @@ const AddBill = () => {
                             leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-xray" type="text" 
                             placeholder="no" name="xray" onChange={e=>onchange(e)}> 
                                 <option value="None">None</option>
-                                <option value="Chest">Chest</option>
-                                <option value="Kidney">Kidney</option>
-                                <option value="Bones">Bones</option>
+                                <option value="Chest (Rs.100)">Chest (Rs.100)</option>
+                                <option value="Kidney (Rs.200)">Kidney (Rs.200)</option>
+                                <option value="Bones (Rs.300)">Bones (Rs.300)</option>
                             </select>  
                     </div>
                 </div> <br/> 
