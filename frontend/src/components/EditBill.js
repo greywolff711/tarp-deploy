@@ -43,6 +43,7 @@ const EditBill = () => {
         if(xray==="Bones (Rs.300)")other_costs+=300;
 
         let total_cost=other_costs;
+        let extra=formData['cost'];
         formData['cost']=Number(formData['cost'])+total_cost;
         // check thisssss!!!!!!!!!
         fetch(`http://localhost:5000/api/bill/${id}`, {
@@ -57,7 +58,7 @@ const EditBill = () => {
             
         })
         let phone=formData.phone;
-        let recordPOSTData={phone,"consultation":con,"tests":test,xray};
+        let recordPOSTData={phone,"consultation":con,"tests":test,xray,extra};
         fetch(`http://localhost:5000/api/bill/recordEdit/${id}`, {
             method: "POST",
             headers: {

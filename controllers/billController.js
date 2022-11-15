@@ -19,7 +19,7 @@ async(req,res)=>{
         return res.status(400).json({errors:errors.array()});
     }
 
-    const {phone,cost,status,consultation,tests,xray}=req.body;
+    const {phone,cost,status,consultation,tests,xray,extra}=req.body;
     inpatient_fetch=await Inpatient.find({phone:phone});
     outpatient_fetch=await Outpatient.find({phoneNo:phone});
     let patient_id=null;
@@ -33,7 +33,8 @@ async(req,res)=>{
         const newRecord={
           consultation,
           tests,
-          xray
+          xray,
+          extra
         };
         bill.record.unshift(newRecord);
         await bill.save();
@@ -49,17 +50,19 @@ check('phone','phone is required').not().isEmpty(),
 check('consultation','consultation is required').not().isEmpty(),
 check('tests','tests is required').not().isEmpty(),
 check('xray','xray is required').notEmpty(),
+check('extra','extra is required').notEmpty(),
 async(req,res)=>{
   errors=validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({errors:errors.array()});
   }
-  const{phone,consultation,tests,xray}=req.body;
+  const{phone,consultation,tests,xray,extra}=req.body;
   // console.log(req.body)
   const newRecord={
     consultation,
     tests,
-    xray
+    xray,
+    extra
   };
   inpatient_fetch=await Inpatient.find({phone:phone});
   outpatient_fetch=await Outpatient.find({phoneNo:phone});
@@ -132,16 +135,18 @@ router.post('/recordEdit/:id',
   check('consultation','consultation is required').not().isEmpty(),
   check('tests','tests is required').not().isEmpty(),
   check('xray','xray is required').notEmpty(),
+  check('extra','extra is required').notEmpty(),
   async(req,res)=>{
     errors=validationResult(req);
     if(!errors.isEmpty()){
       return res.status(400).json({errors:errors.array()});
     }
-    const{phone,consultation,tests,xray}=req.body;
+    const{phone,consultation,tests,xray,extra}=req.body;
     const fields={
       "consultation":true,
       "tests":"None",
-      "xray":"None"
+      "xray":"None",
+      "extra":""
     };
     // if(phone.length != 0 ){
     //   inpatient_fetch=await Inpatient.find({phone:phone});
@@ -161,6 +166,9 @@ router.post('/recordEdit/:id',
     }
     if(xray.length!=0){
       fields.xray=xray;
+    }
+    if(extra.length!=0){
+      fields.extra=extra;
     }
 
     try{

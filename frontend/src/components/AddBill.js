@@ -1,4 +1,3 @@
-
 import pict from "./logos/main_logo_v2.svg";
 import pictblack from "./logos/main_logo_black.svg";
 import React from "react";
@@ -11,7 +10,8 @@ const AddBill = () => {
         status:"",
         consultation:true,
         tests:"None",
-        xray:"None"
+        xray:"None",
+        extra:""
     });
     // consultation,tests,xray
     const [con,setCon]=useState(true);
@@ -25,7 +25,7 @@ const AddBill = () => {
     const onsubmit=(e)=>{
         e.preventDefault();
         let other_costs=0;
-        if(formData.consultation=="true")other_costs+=100;//adding the consultation costs here
+        if(formData.consultation===true)other_costs+=100;//adding the consultation costs here
         if(formData.tests==="Blood test (Rs.100)")other_costs+=100;
         else if(formData.tests==="LFT (Rs.200)")other_costs+=200;
         else if(formData.tests==="COVID (Rs.300)")other_costs+=300;
@@ -33,6 +33,7 @@ const AddBill = () => {
         if(formData.xray==="Kidney (Rs.200)")other_costs+=200;
         if(formData.xray==="Bones (Rs.300)")other_costs+=300;
         let total_cost=other_costs;
+        formData['extra']=Number(formData['cost']);
         formData['cost']=Number(formData['cost'])+total_cost;
 
         console.log(formData);
