@@ -35,14 +35,15 @@ const EditBill = () => {
         // console.log(formData);
         let other_costs=0;
         if(con==true)other_costs+=100;//adding the consultation costs here
-        if(test==="Blood test")other_costs+=100;
-        else if(test==="LFT")other_costs+=200;
-        else if(test==="COVID")other_costs+=300;
-        if(xray==="Chest")other_costs+=100;
-        if(xray==="Kidney")other_costs+=200;
-        if(xray==="Bones")other_costs+=300;
+        if(test==="Blood test (Rs.100)")other_costs+=100;
+        else if(test==="LFT (Rs.200)")other_costs+=200;
+        else if(test==="COVID (Rs.300)")other_costs+=300;
+        if(xray==="Chest (Rs.100)")other_costs+=100;
+        if(xray==="Kidney (Rs.200)")other_costs+=200;
+        if(xray==="Bones (Rs.300)")other_costs+=300;
 
         let total_cost=other_costs;
+        let extra=formData['cost'];
         formData['cost']=Number(formData['cost'])+total_cost;
         // check thisssss!!!!!!!!!
         fetch(`http://localhost:5000/api/bill/${id}`, {
@@ -57,7 +58,7 @@ const EditBill = () => {
             
         })
         let phone=formData.phone;
-        let recordPOSTData={phone,"consultation":con,"tests":test,xray};
+        let recordPOSTData={phone,"consultation":con,"tests":test,xray,extra};
         fetch(`http://localhost:5000/api/bill/recordEdit/${id}`, {
             method: "POST",
             headers: {
@@ -135,7 +136,7 @@ const EditBill = () => {
                         <select className="appearance-none block w-[120px] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 
                         leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-consult" type="text" 
                         placeholder="no" name="consult" onChange={e=>setCon(e.target.value)}> 
-                            <option value={true}>Yes</option>
+                            <option value={true}>Yes (Rs.100)</option>
                             <option value={false}>No</option>
                         </select>
                     </div> 
@@ -147,9 +148,9 @@ const EditBill = () => {
                             leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-test1" type="text" 
                             placeholder="test1" onChange={e=>setTest(e.target.value)}> 
                                 <option value="None">None</option>
-                                <option value="Blood Test">Blood Test</option>
-                                <option value="LFT">LFT</option>
-                                <option value="COVID">COVID Test</option>
+                                <option value="Blood Test (Rs.100)">Blood Test (Rs.100)</option>
+                                <option value="LFT (Rs.200)">LFT (Rs.200)</option>
+                                <option value="COVID (Rs.300)">COVID Test (Rs.300)</option>
                             </select>  
                     </div>
 
@@ -161,9 +162,9 @@ const EditBill = () => {
                             leading-tight focus:outline-none focus:bg-white focus:border-gray-400" id="grid-xray" type="text" 
                             placeholder="no" onChange={e=>setXray(e.target.value)}> 
                                 <option value="None">None</option>
-                                <option value="Chest">Chest</option>
-                                <option value="Kidney">Kidney</option>
-                                <option value="Bones">Bones</option>
+                                <option value="Chest (Rs.100)">Chest (Rs.100)</option>
+                                <option value="Kidney (Rs.200)">Kidney (Rs.200)</option>
+                                <option value="Bones (Rs.300)">Bones (Rs.300)</option>
                             </select>  
                     </div>
                 </div> <br/> 
