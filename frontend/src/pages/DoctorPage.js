@@ -14,6 +14,7 @@ import ManageAppointments from '../components/ManageAppointments'
 import ManageInpatient from '../components/ManageInpatient'
 import ManageOutpatient from '../components/ManageOutpatient'
 import ManagePrescription from '../components/ManagePrescription'
+import TodaySchedule from '../components/TodaySchedule'
 function DoctorPage() {
     const location = useLocation()
     // console.log(location.pathname)
@@ -54,6 +55,9 @@ function DoctorPage() {
         }
         else if(location.pathname === "/doctor/EditAppointment" ){
           return <EditAppointment />
+        }
+        else if(location.pathname === "/doctor/TodaySchedule" ){
+          return <TodaySchedule />
         }
         
 
