@@ -26,7 +26,7 @@ const TodaySchedule = () => {
             <div className="flex-none w-full max-w-full px-3">
                 <div className="relative flex flex-col min-w-0 mb-6 break-words bg-white pb-6 border-1 border-black border-solid shadow-soft-xl rounded bg-clip-border">
                 <div className="p-2 pb-0 mb-0 bg-white border-1 border-b-solid rounded border-black">
-                    <h6 className="text-2xl uppercase">Todays Schedule</h6>
+                    <h6 className="text-2xl uppercase">Today's Schedule</h6>
                     <br/>
                 </div>
                
