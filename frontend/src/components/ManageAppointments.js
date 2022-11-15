@@ -95,7 +95,7 @@ const ManageAppointments = () => {
                             </label>
                             <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
                             rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-date" type="date" 
-                            placeholder={"24-09-2022"} name="from" onChange={e=>onchange(e)}/><br/>
+                            placeholder={"24-09-2022"} name="date" onChange={e=>onchange(e)}/><br/>
                         </div>
                     </div>
                     <br/>
