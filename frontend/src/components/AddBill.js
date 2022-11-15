@@ -36,7 +36,7 @@ const AddBill = () => {
         formData['cost']=Number(formData['cost'])+total_cost;
 
         console.log(formData);
-        fetch(`https://pure-reef-02809.herokuapp.com/api/bill`, {
+        fetch(`http://localhost:5000/api/bill`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ const AddBill = () => {
         });
         let phone=formData.phone;
         let recordPOSTData={phone,"consultation":con,"tests":test,xray};
-        // fetch(`https://pure-reef-02809.herokuapp.com/api/bill/record`, {
+        // fetch(`http://localhost:5000/api/bill/record`, {
         //     method: "POST",
         //     headers: {
         //         'Content-Type': 'application/json'

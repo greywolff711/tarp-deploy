@@ -17,7 +17,7 @@ const AddInventory = () => {
 
     const onsubmit=(e)=>{
         e.preventDefault();
-        fetch(`https://pure-reef-02809.herokuapp.com/api/medicine`, {
+        fetch(`http://localhost:5000/api/medicine`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

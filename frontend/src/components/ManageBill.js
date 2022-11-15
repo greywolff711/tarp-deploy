@@ -12,14 +12,14 @@ const ManageBill = () => {
 //   console.log(l);    
   const [bill,setbill]=useState([]);
   useEffect(()=>{
-      fetch(`https://pure-reef-02809.herokuapp.com/api/bill/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+      fetch(`http://localhost:5000/api/bill/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
         setbill(val);
         console.log(val[0].record[0]);
       })
   },[])
   const deleteBill=(id)=>{
       console.log('qweqwe');
-      fetch(`https://pure-reef-02809.herokuapp.com/api/bill/${id}`, {
+      fetch(`http://localhost:5000/api/bill/${id}`, {
           method: "DELETE",
           headers: {
               'x-auth-token':JSON.parse(localStorage.user).token,

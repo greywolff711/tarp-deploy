@@ -18,7 +18,7 @@ const AddPrescription = () => {
   const onsubmit = (e) => {
     // console.log(medSearch);
     e.preventDefault();
-    fetch(`https://pure-reef-02809.herokuapp.com/api/medicine/${medSearch}`, {
+    fetch(`http://localhost:5000/api/medicine/${medSearch}`, {
       method: "GET",
     })
       .then((res) => res.json())
@@ -28,7 +28,7 @@ const AddPrescription = () => {
         if (med[0] != undefined) {
           var quantity = prompt("How many?");
           let medName = med[0].name;
-          fetch("https://pure-reef-02809.herokuapp.com/api/medicine/quantity", {
+          fetch("http://localhost:5000/api/medicine/quantity", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -54,7 +54,7 @@ const AddPrescription = () => {
       });
   };
   useEffect(() => {
-    fetch(`https://pure-reef-02809.herokuapp.com/api/medicine`, {
+    fetch(`http://localhost:5000/api/medicine`, {
       headers: { "Content-Type": "application/json" },
     })
       .then((data) => data.json())
@@ -76,7 +76,7 @@ const AddPrescription = () => {
     newFormData.append("image", formdata.image);
     newFormData.append("medicines", formdata.medicines);
     newFormData.append("instructions", formdata.instructions);
-    fetch("https://pure-reef-02809.herokuapp.com/api/prescription/", {
+    fetch("http://localhost:5000/api/prescription/", {
       method: "POST",
       //   headers: {
       //     "Content-Type": "multipart/form-data",
@@ -286,7 +286,7 @@ export default AddPrescription;
 //   const onsubmit = (e) => {
 //     // console.log(medSearch);
 //     e.preventDefault();
-//     fetch(`https://pure-reef-02809.herokuapp.com/api/medicine/${medSearch}`, {
+//     fetch(`http://localhost:5000/api/medicine/${medSearch}`, {
 //       method: "GET",
 //     })
 //       .then((res) => res.json())
@@ -296,7 +296,7 @@ export default AddPrescription;
 //         if (med[0] != undefined) {
 //           var quantity = prompt("How many?");
 //           let medName = med[0].name;
-//           fetch("https://pure-reef-02809.herokuapp.com/api/medicine/quantity", {
+//           fetch("http://localhost:5000/api/medicine/quantity", {
 //             method: "POST",
 //             headers: {
 //               "Content-Type": "application/json",
@@ -322,7 +322,7 @@ export default AddPrescription;
 //       });
 //   };
 //   useEffect(() => {
-//     fetch(`https://pure-reef-02809.herokuapp.com/api/medicine`, {
+//     fetch(`http://localhost:5000/api/medicine`, {
 //       headers: { "Content-Type": "application/json" },
 //     })
 //       .then((data) => data.json())
@@ -344,7 +344,7 @@ export default AddPrescription;
 //     newFormData.append("image", formdata.image);
 //     newFormData.append("medicine", formdata.medicine);
 //     newFormData.append("instructions", formdata.instructions);
-//     fetch("https://pure-reef-02809.herokuapp.com/api/prescription/", {
+//     fetch("http://localhost:5000/api/prescription/", {
 //       method: "POST",
 //       //   headers: {
 //       //     "Content-Type": "multipart/form-data",

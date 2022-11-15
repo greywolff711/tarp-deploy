@@ -19,7 +19,7 @@ const EditOutpatient = () => {
     const onsubmit=(e)=>{
         e.preventDefault();
         console.log(formData)
-        fetch(`https://pure-reef-02809.herokuapp.com/api/outpatient/update/${id}`, {
+        fetch(`http://localhost:5000/api/outpatient/update/${id}`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

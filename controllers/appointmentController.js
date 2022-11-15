@@ -177,6 +177,31 @@ router.post(
     }
   );
 
+router.get('/getDate/date',
+async(req,res)=>{
+  try {
+    const {date}=req.body;
+    console.log("date");
+    const appointments = await Appointment.find({date});
+    res.status(200).json(appointments);
+  } catch (err) {
+      console.log(err.message);
+  }
+})
+
+router.get('/slots/today',async(req,res)=>{
+  try {
+    var start = new Date();
+    start.setUTCHours(0,0,0);
+    start.setUTCMilliseconds(0);
+    console.log(start)
+    const appointments = await Appointment.find({date:start});
+    res.json(appointments);
+  } catch (error) {
+    console.log(err.message);
+  }
+})
+
 router.get('/',async(req,res)=>{
     try {
         const appointments = await Appointment.find();

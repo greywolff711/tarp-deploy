@@ -5,7 +5,7 @@ import ViewRole from './ViewRole';
 const RoomDetail = () => {  
     const [booking,setbooking]=useState([]);
     useEffect(()=>{
-      fetch(`https://pure-reef-02809.herokuapp.com/api/bookedRoom/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+      fetch(`http://localhost:5000/api/bookedRoom/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
         setbooking(val);
       })
     },[])

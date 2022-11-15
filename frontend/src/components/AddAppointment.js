@@ -22,7 +22,7 @@ const AddAppointment = () => {
         console.log(formData);
         if(e.target.name==="from"){
             let from=e.target.value;
-            fetch(`https://pure-reef-02809.herokuapp.com/api/appointment/slottime`, {
+            fetch(`http://localhost:5000/api/appointment/slottime`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -43,8 +43,8 @@ const AddAppointment = () => {
     const onsubmit=(e)=>{
         console.log(formData);
         e.preventDefault();
-        // console.log(`https://pure-reef-02809.herokuapp.com/api/appointment/${formData.patient}/${formData.doctor}`)
-        fetch(`https://pure-reef-02809.herokuapp.com/api/appointment/slot/${formData.patient}/${formData.doctor}`, {
+        // console.log(`http://localhost:5000/api/appointment/${formData.patient}/${formData.doctor}`)
+        fetch(`http://localhost:5000/api/appointment/slot/${formData.patient}/${formData.doctor}`, {
             method: "POST",
             headers: {
                 // 'x-auth-token':JSON.parse(localStorage.user).token,

@@ -19,7 +19,7 @@ const AddReceptionist = () => {
     }
     const onsubmit=(e)=>{
         e.preventDefault();
-        fetch(`https://pure-reef-02809.herokuapp.com/api/receptionist/signup`, {
+        fetch(`http://localhost:5000/api/receptionist/signup`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

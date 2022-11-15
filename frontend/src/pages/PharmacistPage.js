@@ -22,7 +22,7 @@ function PharmacistPage() {
     //     ]
     // }
     useEffect(()=>{
-      fetch(`https://pure-reef-02809.herokuapp.com/api/prescription/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+      fetch(`http://localhost:5000/api/prescription/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
         setprescription(val);
         console.log(val);
       })

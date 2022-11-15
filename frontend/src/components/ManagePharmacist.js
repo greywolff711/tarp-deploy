@@ -13,14 +13,14 @@ const ManagePharmacist = () => {
   const [pharmacist,setPharmacist]=useState([]);
   // console.log(JSON.parse(localStorage.user).token);
   useEffect(()=>{
-      fetch(`https://pure-reef-02809.herokuapp.com/api/pharmacist`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+      fetch(`http://localhost:5000/api/pharmacist`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
         setPharmacist(val);
       })
   },[])
   // console.log(pharmacist)
   const deletePharmacist=(id)=>{
     console.log('qweqwe');
-    fetch(`https://pure-reef-02809.herokuapp.com/api/pharmacist/${id}`, {
+    fetch(`http://localhost:5000/api/pharmacist/${id}`, {
         method: "DELETE"
     }).then((data) => data.json() ).then((val) => {
         console.log(val);

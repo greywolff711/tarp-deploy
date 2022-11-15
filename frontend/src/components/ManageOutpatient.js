@@ -64,14 +64,14 @@ const ManageOutpatient = () => {
   // console.log(l);  
   const [outpatient,setOutpatient]=useState([]);
   useEffect(()=>{
-    fetch(`https://pure-reef-02809.herokuapp.com/api/outpatient/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+    fetch(`http://localhost:5000/api/outpatient/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
       setOutpatient(val);
     })
   },[])
   console.log(outpatient)
   const deleteOutpatient=(id)=>{
-    console.log(`https://pure-reef-02809.herokuapp.com/api/outpatient/${id}`);
-    fetch(`https://pure-reef-02809.herokuapp.com/api/outpatient/${id}`, {
+    console.log(`http://localhost:5000/api/outpatient/${id}`);
+    fetch(`http://localhost:5000/api/outpatient/${id}`, {
         method: "DELETE",
         headers: {
             // 'x-auth-token':JSON.parse(localStorage.user).token,
