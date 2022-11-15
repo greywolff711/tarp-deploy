@@ -89,13 +89,16 @@ const ManageAppointments = () => {
                         <h6 className="text-2xl uppercase">Appointments</h6>
                         <br/>
                         <Link to={"/"+l+"/AddAppointment"} ><button className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white">ADD</button></Link>
+                        
                         <div className="w-full md:w-[12rem] mb-6 md:mb-0"> <br/>
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-date">
                                 Date
                             </label>
                             <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
                             rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-date" type="date" 
-                            placeholder={"24-09-2022"} name="date" onChange={e=>onchange(e)}/><br/>
+                            placeholder={"24-09-2022"} name="date" onChange={e=>onchange(e)}/>
+                            <Link to={"/"+l+"/"} ><button className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white">SEARCH</button></Link>
+                            <Link to={"/"+l+"/"} ><button className=" ml-2 font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white">RESET</button></Link>
                         </div>
                     </div>
                     <br/>
