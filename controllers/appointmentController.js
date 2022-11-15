@@ -192,13 +192,14 @@ async(req,res)=>{
 router.get('/slots/today',async(req,res)=>{
   try {
     var start = new Date();
+    start.setUTCDate(start.getUTCDate() + 1);
     start.setUTCHours(0,0,0);
     start.setUTCMilliseconds(0);
     console.log(start)
     const appointments = await Appointment.find({date:start});
     res.json(appointments);
   } catch (error) {
-    console.log(err.message);
+    console.log(error.message);
   }
 })
 

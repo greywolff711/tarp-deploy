@@ -8,8 +8,9 @@ const TodaySchedule = () => {
   console.log(l); 
   const [slots,setSlots]=useState([]);
   useEffect(()=>{
-    fetch(`http://localhost:5000/api/`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
-      setSlots(val);
+    fetch(`http://localhost:5000/api/appointment/slots/today`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+      console.log(val);
+      setSlots(val)
     })
   },[])
   console.log(slots);
@@ -46,13 +47,13 @@ const TodaySchedule = () => {
                                 <td className="p-0 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                 <div className="flex px-2 py-1">
                                     <div className="flex flex-col justify-center">
-                                    <h6 className="mb-0 leading-normal text-sm">slottttttttttttt</h6>
+                                    <h6 className="mb-0 leading-normal text-sm">{item.timing}</h6>
                                     </div>
                                 </div>
                                 </td>
                             </tr>
                         
-                      ))}
+                        ))}
                         </tbody>
                     </table>
                     </div>
