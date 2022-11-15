@@ -10,6 +10,7 @@ const ManageAppointments = () => {
   const location = useLocation();
   // console.log(location);
   const l = window.location.pathname.replace(/^\/([^\/]*).*$/, '$1');
+  const [dateAppointment,setDateAppointment]=useState(new Date());
   // console.log(l);  
   const [appointment,setAppointment]=useState([]);
     useEffect(()=>{
@@ -17,6 +18,20 @@ const ManageAppointments = () => {
           setAppointment(val);
         })
     },[]);
+    const onclickhandler1=()=>{
+        let appdate=dateAppointment.toISOString().split('T')[0]
+        fetch(`http://localhost:5000/api/appointment/getDate/date/${appdate}`, {
+          method: "GET"
+        }).then((data) => data.json() ).then((val) => {
+            // console.log(val);
+            setAppointment(val);
+        })
+    }
+    const onclickhandler2=()=>{
+        fetch(`http://localhost:5000/api/appointment`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+          setAppointment(val);
+        })
+    }
     // console.log(appointment);
     const deleteAppointment=(id,date,timing)=>{
       // console.log('qweqwe');
@@ -96,9 +111,9 @@ const ManageAppointments = () => {
                             </label>
                             <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
                             rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-date" type="date" 
-                            placeholder={"24-09-2022"} name="date" onChange={e=>onchange(e)}/>
-                            <Link to={"/"+l+"/"} ><button className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white">SEARCH</button></Link>
-                            <Link to={"/"+l+"/"} ><button className=" ml-2 font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white">RESET</button></Link>
+                            placeholder={"24-09-2022"} name="date" onChange={e=>setDateAppointment(new Date(e.target.value))}/>
+                            <button className="font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white" onClick={()=>onclickhandler1()}>SEARCH</button>
+                            <button className=" ml-2 font-semibold leading-tight text-xs rounded border-black border-2 px-3 py-3 transition duration-300 hover:bg-black hover:text-white" onClick={()=>onclickhandler2()}>RESET</button>
                         </div>
                     </div>
                     <br/>

@@ -177,12 +177,12 @@ router.post(
     }
   );
 
-router.get('/getDate/date',
+router.get('/getDate/date/:date_app',
 async(req,res)=>{
   try {
-    const {date}=req.body;
-    console.log("date");
-    const appointments = await Appointment.find({date});
+    // const {date}=req.body;
+    // console.log("date");
+    const appointments = await Appointment.find({date:req.params.date_app});
     res.status(200).json(appointments);
   } catch (err) {
       console.log(err.message);
