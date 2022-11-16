@@ -75,7 +75,8 @@ router.post('/login',
         }
         const {phone,password}=req.body;
         try {
-            let outpatient=await OutPatient.findOne({phone});
+            let outpatient=await OutPatient.findOne({phoneNo:phone});
+            console.log(outpatient);
             if(!outpatient){
                 return res.status(400).json({error:[{msg:'Invalid credentials'}]});
             }
