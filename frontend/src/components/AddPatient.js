@@ -24,6 +24,7 @@ const AddPatient = () => {
 
 const onsubmit=(e)=>{
     e.preventDefault();
+    console.log(formData);
     fetch(`http://localhost:5000/api/outpatient/signup`, {
         method: "POST",
         headers: {
@@ -33,11 +34,12 @@ const onsubmit=(e)=>{
         body: JSON.stringify(formData)
     }).then((data) => data.json() ).then((val) => {
         console.log(val);
-        if(val.errors===undefined)
+        if(val.errors===undefined&&val.error===undefined)
           navigate('/outpatient/1');
     })
 }
-
+const [mobile, setmobile] = useState("");
+const [isError, setIsError] = useState(false);
 
   return (
     <div className="grid grid-cols-2 h-screen">
@@ -101,13 +103,38 @@ const onsubmit=(e)=>{
             </div>
           </div>
           
-          <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
+          {/* <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-contact">
                         Contact
                         </label>
                         <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
                         rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-contact" type="text" 
                         placeholder="1234567890" name="phone" onChange={e=>onchange(e)}/>
+            </div> <br/> */}
+
+          <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-contact">
+            Contact
+            </label>
+            <div id="error" className="text-red-500"></div>
+            <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 
+            rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-400 focus:bg-white" id="grid-contact" type="text" 
+            placeholder="1234567890" error={isError} value={mobile} name="phone"
+            onChange={(e) => {
+              setmobile(e.target.value);
+              if (/^[6-9]\d{9}$/gi.test(e.target.value)) {
+                // document.getElementById("error").innerHTML = ""
+                console.log(e.target.value)
+                onchange(e);
+              }
+              else {
+                // console.log("ERROR")
+                setFormData({...formData,phone:""});
+                // console.log(formData);
+                // document.getElementById("error").innerHTML="*";
+              }
+            }}
+            />
             </div> <br/>
           <div className="w-full md:w-[30rem] px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-email">
