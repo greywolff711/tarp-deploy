@@ -17,7 +17,7 @@ const EditReceptionist = () => {
     console.log(id)
     const [receptionist,setReceptionist]=useState([]);
     useEffect(()=>{
-        fetch(`http://localhost:5000/api/receptionist/${id}`,{headers:{'Content-Type':'application/json','x-auth-token':JSON.parse(localStorage.user).token}}).then((data) => data.json() ).then((val) => {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/receptionist/${id}`,{headers:{'Content-Type':'application/json','x-auth-token':JSON.parse(localStorage.user).token}}).then((data) => data.json() ).then((val) => {
           setReceptionist(val);
         })
     },[])
@@ -28,7 +28,7 @@ const EditReceptionist = () => {
 
     const onsubmit=(e)=>{
         e.preventDefault();
-        fetch(`http://localhost:5000/api/receptionist/update/${id}`, {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/receptionist/update/${id}`, {
             method: "POST",
             headers: {
                 'x-auth-token':JSON.parse(localStorage.user).token,

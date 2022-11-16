@@ -8,7 +8,7 @@ const TodaySchedule = () => {
   console.log(l); 
   const [slots,setSlots]=useState([]);
   useEffect(()=>{
-    fetch(`http://localhost:5000/api/appointment/slots/today`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+    fetch(`https://pure-reef-02809.herokuapp.com/api/appointment/slots/today`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
       console.log(val);
       setSlots(val)
     })
