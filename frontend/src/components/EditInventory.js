@@ -12,7 +12,7 @@ const EditInventory = () => {
     console.log(id)
     const [data,setData]=useState([]);
     useEffect(()=>{
-        fetch(`http://localhost:5000/api/medicine/${id}`,{headers:{'Content-Type':'application/json','x-auth-token':JSON.parse(localStorage.user).token}}).then((data) => data.json() ).then((val) => {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/medicine/${id}`,{headers:{'Content-Type':'application/json','x-auth-token':JSON.parse(localStorage.user).token}}).then((data) => data.json() ).then((val) => {
           setData(val);
           console.log(val)
         })
@@ -31,7 +31,7 @@ const EditInventory = () => {
             
             e.preventDefault();
             console.log(formData);
-        fetch(`http://localhost:5000/api/medicine/${id}`, {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/medicine/${id}`, {
                 method: "POST",
                 headers: {
                     // 'x-auth-token':JSON.parse(localStorage.user).token,

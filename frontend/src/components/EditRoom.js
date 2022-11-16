@@ -22,14 +22,14 @@ const EditRoom = () => {
         console.log(formData);
     }
     useEffect(()=>{
-        fetch(`http://localhost:5000/api/rooms`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/rooms`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
           setRooms(val);
         })
     },[])
     const onsubmit=(e)=>{
         e.preventDefault();
         console.log(formData);
-    fetch(`http://localhost:5000/api/bookedRoom/${id}`, {
+    fetch(`https://pure-reef-02809.herokuapp.com/api/bookedRoom/${id}`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

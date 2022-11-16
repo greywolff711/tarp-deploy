@@ -14,13 +14,13 @@ const ManageAppointments = () => {
   // console.log(l);  
   const [appointment,setAppointment]=useState([]);
     useEffect(()=>{
-        fetch(`http://localhost:5000/api/appointment`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/appointment`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
           setAppointment(val);
         })
     },[]);
     const onclickhandler1=()=>{
         let appdate=dateAppointment.toISOString().split('T')[0]
-        fetch(`http://localhost:5000/api/appointment/getDate/date/${appdate}`, {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/appointment/getDate/date/${appdate}`, {
           method: "GET"
         }).then((data) => data.json() ).then((val) => {
             // console.log(val);
@@ -28,14 +28,14 @@ const ManageAppointments = () => {
         })
     }
     const onclickhandler2=()=>{
-        fetch(`http://localhost:5000/api/appointment`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/appointment`,{headers:{'Content-Type':'application/json'}}).then((data) => data.json() ).then((val) => {
           setAppointment(val);
         })
     }
     // console.log(appointment);
     const deleteAppointment=(id,date,timing)=>{
       // console.log('qweqwe');
-      fetch(`http://localhost:5000/api/appointment/${id}/${date}/${timing}`, {
+      fetch(`https://pure-reef-02809.herokuapp.com/api/appointment/${id}/${date}/${timing}`, {
           method: "DELETE"
       }).then((data) => data.json() ).then((val) => {
           console.log(val);

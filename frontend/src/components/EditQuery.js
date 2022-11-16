@@ -31,7 +31,7 @@ const EditQuery = () => {
     
     useEffect(()=>{
         
-        fetch(`http://localhost:5000/api/queries/${id}`,{headers:{'Content-Type':'application/json','x-auth-token':JSON.parse(localStorage.user).token}}).then((data) => data.json() ).then((val) => {
+        fetch(`https://pure-reef-02809.herokuapp.com/api/queries/${id}`,{headers:{'Content-Type':'application/json','x-auth-token':JSON.parse(localStorage.user).token}}).then((data) => data.json() ).then((val) => {
           setData(val);
 
         })
@@ -47,7 +47,7 @@ const EditQuery = () => {
         
         e.preventDefault();
         console.log(formData);
-    fetch(`http://localhost:5000/api/queries/${id}`, {
+    fetch(`https://pure-reef-02809.herokuapp.com/api/queries/${id}`, {
             method: "POST",
             headers: {
                 // 'x-auth-token':JSON.parse(localStorage.user).token,
