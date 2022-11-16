@@ -192,7 +192,7 @@ async(req,res)=>{
 router.get('/slots/today',async(req,res)=>{
   try {
     var start = new Date();
-    start.setUTCDate(start.getUTCDate() + 1);
+    start.setUTCDate(start.getUTCDate());
     start.setUTCHours(0,0,0);
     start.setUTCMilliseconds(0);
     console.log(start)
