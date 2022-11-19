@@ -25,6 +25,7 @@ const ManageAppointments = () => {
         }).then((data) => data.json() ).then((val) => {
             // console.log(val);
             setAppointment(val);
+            // console.log(appointment)
         })
     }
     const onclickhandler2=()=>{
